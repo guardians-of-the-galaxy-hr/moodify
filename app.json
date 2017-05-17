@@ -1,5 +1,5 @@
 {
-  "name": "ninjacodez",
+  "name": "moooodify",
   "scripts": {
     "start": "node ./server/index.js"
   },
