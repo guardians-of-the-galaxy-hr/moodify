@@ -1,6 +1,7 @@
 {
   "name": "ninjacodez",
   "scripts": {
+    "start": "node ./server/index.js"
   },
   "env": {
     "MM_API_KEY": {"required": true},
