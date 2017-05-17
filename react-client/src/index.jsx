@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render((
 	<BrowserRouter>
-	  <Router />
+	<Router />
 	</BrowserRouter>
 	), document.getElementById('root'));
 // testing
