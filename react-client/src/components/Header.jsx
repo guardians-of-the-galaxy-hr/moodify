@@ -12,8 +12,7 @@ class Header extends React.Component {
   }
 
   redirect() {
-    this.setState(
-      {
+    this.setState({
         redirect: true
       });
   }

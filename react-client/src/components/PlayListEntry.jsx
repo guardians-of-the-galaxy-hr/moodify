@@ -4,8 +4,8 @@ import PlaylistSelect from './PlaylistSelect.jsx';
 class PlaylistEntry extends React.Component {
   constructor(props) {
     super(props);
-    this.state = 
-    {
+    this.state = {
+      playlist: [],
       entry: ''
     };
 
@@ -22,12 +22,9 @@ class PlaylistEntry extends React.Component {
 
   createPlaylist(event) {
     this.props.createNewPlaylists(this.state.entry)
-    this.setState({value: event.target.value});
-  }
-
-  createPlaylist(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+    this.setState({
+      entry: event.target.value
+    });
   }
 
   render() {
@@ -60,5 +57,4 @@ class PlaylistEntry extends React.Component {
   }
 }
 
-
-export default PlaylistEntry 
+export default PlaylistEntry;

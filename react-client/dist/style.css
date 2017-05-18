@@ -500,6 +500,7 @@ h6 {
   text-align: center;
 }
 
+<<<<<<< HEAD
 .TweetsLoading {
   padding-top: 40%;
 }
@@ -518,3 +519,15 @@ h6 {
   display: block;
   float: left;
 }
+=======
+.playlist-entry {
+  display: inline-block;
+  float: right;
+}
+
+.playlist-select {
+  display: inline;
+  float: center;
+  width: 100px;
+}
+>>>>>>> creating playlist
