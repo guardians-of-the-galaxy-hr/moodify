@@ -188,13 +188,7 @@ class App extends React.Component {
     this.setState({
       showStats: !this.state.showStats
     });
-
-  gatherPlaylist(playlist) {
-    this.setState({
-      newPlaylist: playlist
-    })
   }
-
 
   updateUserStats(userInfo) {
     this.setState({

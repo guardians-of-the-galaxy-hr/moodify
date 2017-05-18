@@ -19,6 +19,14 @@ class PlaylistSelect extends React.Component {
     });
   }
 
+class PlaylistEntry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPlaylist: false
+    }
+  }
+
   render() {
     return (
       <div>
@@ -28,6 +36,12 @@ class PlaylistSelect extends React.Component {
           })}
         </select>
         {this.state.showPlaylist ? <Playlist className="playlist" playlist={this.state.selectedPlaylist} /> : null}
+        <select className="playlist-select">
+          {playlist.map((value, index) => {
+            return <option key={index}>{value}</option>
+          })}
+        </select>
+        {this.props.showPlaylist ? <Playlist /> : null}
       </div>
     )
   }

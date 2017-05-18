@@ -472,7 +472,7 @@ h6 {
   font-size: 12;
   height: 20px;
   width: 150px;
-  display: inline-block;
+  display: inline;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -506,7 +506,18 @@ h6 {
   margin-top: 10%;
   text-align: center;
 }
+
 .TweetsLoading {
   padding-top: 40%;
-  
+}
+
+.playlist-entry {
+  display: inline-block;
+  float: right;
+}
+
+.playlist-select {
+  display: inline;
+  float: center;
+  width: 100px;
 }
