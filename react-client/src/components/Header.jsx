@@ -12,15 +12,14 @@ class Header extends React.Component {
   }
 
   redirect() {
-    this.setState(
-      {
+    this.setState({
         redirect: true
       });
   }
 
   render() {
     if (this.state.redirect && this.state.url !== this.props.url) {
-      return <Redirect push to="/"/>;
+      return <Redirect push to="/" />;
     }
     return (
       <div id="header" onClick={this.redirect}>
