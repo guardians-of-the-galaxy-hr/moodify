@@ -8,7 +8,7 @@ class PlaylistOption extends React.Component {
 
   render() {
     return (
-      <option>{this.props.playlistName}</option>
+      <option>{this.props.playlist}</option>
     )
   }
 }

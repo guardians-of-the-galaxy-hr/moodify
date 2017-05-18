@@ -6,7 +6,6 @@ class PlaylistEntry extends React.Component {
     super(props);
     this.state = 
     {
-      playlist: [],
       entry: ''
     };
 
@@ -23,6 +22,11 @@ class PlaylistEntry extends React.Component {
 
   createPlaylist(event) {
     this.props.createNewPlaylists(this.state.entry)
+    this.setState({value: event.target.value});
+  }
+
+  createPlaylist(event) {
+    alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
 
@@ -57,5 +61,4 @@ class PlaylistEntry extends React.Component {
 }
 
 
-
-export default PlaylistEntry;
+export default PlaylistEntry 

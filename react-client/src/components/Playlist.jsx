@@ -6,7 +6,6 @@ class Playlist extends React.Component {
     this.state = {
       playlists: []
     }
-    console.log(props.currentSongNameAndArtist);
   }
 
   updatePlaylist() {
@@ -26,7 +25,6 @@ class Playlist extends React.Component {
   }
 
   search(artistInfo) {
-    console.log('artist and song details', value);
     this.props.process(this.props.results.track_list[index].track);
   }
 

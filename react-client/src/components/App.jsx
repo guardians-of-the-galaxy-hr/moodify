@@ -78,7 +78,8 @@ class App extends React.Component {
       showResults: true, 
       searchResultsLoading: true, 
       showPrev: true, 
-      upDown: false});
+      upDown: false
+    });
 
     let options = {
       title: title,
@@ -165,7 +166,7 @@ class App extends React.Component {
   showResults() {
     this.setState({
       showResults: !this.state.showResults,
-      showTweets: !this.state.showTweets,
+      showTweets: !this.state.showTweets
     });
     console.log(this.state.showTweets);
   }
@@ -193,6 +194,13 @@ class App extends React.Component {
     this.setState({
       showStats: !this.state.showStats
     });
+
+  }
+
+  gatherPlaylist(playlist) {
+    this.setState({
+      newPlaylist: playlist
+    })
   }
 
   updateUserStats(userInfo) {
@@ -200,7 +208,7 @@ class App extends React.Component {
       userStatsInfo: {
         username: userInfo.data.username,
         listenedSongsList: userInfo.data.listenedSongsList,
-        totalSongsListened: userInfo.data.totalSongsListened,
+        totalSongsListened: userInfo.data.totalSongsListened
       }
     });
   }
@@ -321,13 +329,22 @@ class App extends React.Component {
               loadPastSearchResults={this.loadPastSearchResults}
               showUserStats={this.showUserStats}
             />
-
+            {this.state.showMood
+              ? <Mood
+                  watson={this.state.watson}
+                  songNameAndArtist={this.state.currentSongNameAndArtist}
+                />
+              : null
+            }
             {this.state.showStats ?
               <Stats
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
           </div>
+            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
+              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+              : null}
         </div>
       </div>
     );
