@@ -11,6 +11,7 @@ import Search from './Search.jsx';
 import Header from './Header.jsx';
 import Stats from './Stats.jsx';
 import SearchResults from './SearchResults.jsx';
+import PlaylistEntry from './PlaylistEntry.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
@@ -62,7 +63,11 @@ class App extends React.Component {
   }
 
   search(title, artist) {
-    this.setState({showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
+    this.setState({
+      showResults: true, 
+      searchResultsLoading: true, 
+      showPrev: true, 
+      upDown: false});
 
     let options = {
       title: title,
@@ -72,7 +77,10 @@ class App extends React.Component {
       if (!res.data) {
         console.log('error');
       }
-      this.setState({searchResults: res.data, searchResultsLoading: false});
+      this.setState({
+        searchResults: res.data, 
+        searchResultsLoading: false
+      });
     });
   }
 
@@ -147,6 +155,11 @@ class App extends React.Component {
     this.setState({
       showStats: !this.state.showStats
     });
+
+  gatherPlaylist(playlist) {
+    this.setState({
+      newPlaylist: playlist
+    })
   }
 
 
@@ -236,11 +249,20 @@ class App extends React.Component {
                 />
               : null
             }
+
             {this.state.showStats ?
               <Stats
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
+
+            <PlaylistEntry />
+          </div>
+          <div className="col3">
+            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
+              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+              : null}
+              
           </div>
         </div>
       </div>
