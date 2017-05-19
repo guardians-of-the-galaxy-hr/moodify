@@ -264,6 +264,7 @@ class App extends React.Component {
                 />
               : null
             }
+
             {this.state.showPlayer
               ? <Lyrics
                   showPlayer={this.state.showPlayer}
@@ -290,32 +291,12 @@ class App extends React.Component {
           </div>
 
           <div className="col2">
-            <User
-              showPrev={this.state.showResultsUser}
-              prev={this.showResultsUser}
-              upDown={this.state.upDownUser}
-              runUpDown={this.upDownUser}
-              process={this.process}
-              searchResultsLoading={this.state.searchResultsLoadingUser}
-              loadPastSearchResults={this.loadPastSearchResults}
-              showUserStats={this.showUserStats}
-              showStats={this.state.showStats}
-              updateUserStats={this.updateUserStats}
-            />
-            {this.state.showMood
-              ? <Mood
-                  watson={this.state.watson}
-                  songNameAndArtist={this.state.currentSongNameAndArtist}
-                />
-              : null
-            }
 
             {this.state.showStats ?
               <Stats
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
-
             <PlaylistEntry playlistList={this.state.playlistList} addToPlaylist={this.state.addToPlaylist} createNewPlaylists={this.createNewPlaylists} setCurrentPlaylist={this.setCurrentPlaylist} currentPlaylist={this.state.currentPlaylist} playlists={this.state.playlists} />
           </div>
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood

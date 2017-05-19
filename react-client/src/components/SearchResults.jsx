@@ -16,6 +16,7 @@ class SearchResults extends React.Component {
     this.props.searchTweets(this.props.results.track_list[index].track.artist_name);
   }
 
+
   addToPlayList(artistDetails) {
     this.props.addToPlaylist(artistDetails);
   }

@@ -13,6 +13,8 @@ class PlaylistSelect extends React.Component {
   }
 
   displayPlaylist(event) {
+    this.props.setCurrentPlaylist(event.target.value);
+    event.preventDetault();
     this.setState({
       selectedPlaylist: event.target.value,
       showPlaylist: true
