@@ -142,7 +142,18 @@ app.post('/process', (req, res) => {
   })
   .then(() => {
     if (req.session.username) {
-      return db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
+      return db.User.where({username: req.session.username});
+    }
+  })
+  .then((result) => {
+    function unique(value, index, self) { 
+      return self.indexOf(value) === index;
+    }
+
+    var songs = result[0].songs.filter(unique);
+
+    if (req.session.username) {
+      return db.User.where({username: req.session.username}).update({songs: songs});
     }
   })
   .then(() => {
