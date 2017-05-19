@@ -7,6 +7,13 @@
     "express": "^4.15.2"
   },
   "env": {
+    “MM_API_KEY”: {“required”: true},
+    “MONGODB_URI”: {“required”: true},
+    “WATSON_NLU_PASSWORD”: {“required”: true},
+    “WATSON_NLU_USERNAME”: {“required”: true},
+    “WATSON_TONE_PASSWORD”: {“required”: true},
+    “WATSON_TONE_USERNAME”: {“required”: true},
+    “GOOGLE_API_KEY”: {“required”: true}
   },
   "formation": {
   },
