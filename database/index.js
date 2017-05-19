@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 mongoose.Promise = require('bluebird');
+const Promise = require('bluebird');
 // mongoose.connect('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
@@ -68,3 +69,29 @@ const User = mongoose.model('User', userSchema);
 module.exports.Song = Song;
 module.exports.Watson = Watson;
 module.exports.User = User;
+
+var findUser = function (username, callback) {
+  User.where({username: username}).findOne((err, data) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(err, data);
+    }
+  });
+}
+
+module.exports.findUser = findUser;
+module.exports.findUserAsync = Promise.promisify(findUser);
+
+var findSong = function (song_id, callback) {
+  Song.where({track_id: song_id}).findOne((err, data) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(err, data);
+    }
+  });
+}
+
+module.exports.findSong = findSong;
+module.exports.findSongAsync = Promise.promisify(findSong);
