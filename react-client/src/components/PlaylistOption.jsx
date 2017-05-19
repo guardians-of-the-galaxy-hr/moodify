@@ -1,16 +1,10 @@
 import React from 'react';
 
-class PlaylistOption extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
-  render() {
+var PlaylistOption = ({playlist}) => {
+  console.log(playlist)
     return (
-      <option>{this.props.playlist}</option>
+      <option>{playlist}</option>
     )
   }
-}
 
 export default PlaylistOption;

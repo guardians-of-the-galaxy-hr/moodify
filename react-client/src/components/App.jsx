@@ -44,7 +44,10 @@ class App extends React.Component {
       url: window.location.href,
       loggedIn: false,
       upDownUser: false,
-      searchResultsLoadingUser: false
+      searchResultsLoadingUser: false,
+      playlists: null,
+      currentPlaylist: null,
+      playlistList: []
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -54,6 +57,9 @@ class App extends React.Component {
     this.upDownUser = this.upDownUser.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
+    this.createNewPlaylists = this.createNewPlaylists.bind(this);
+    this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
+    this.addToPlaylist = this.addToPlaylist.bind(this);
   }
 
   search(title, artist) {
@@ -151,9 +157,47 @@ class App extends React.Component {
       showStats: !this.state.showStats
     });
 
-  gatherPlaylist(playlist) {
+  createNewPlaylists(playlist) {
+    let newPlaylistList = this.state.playlistList;
+    console.log('new playlist', newPlaylistList);
+
+    if (!this.state.playlists) {
+      newPlaylistList.push(playlist);
+      let newPlaylists = {};
+      newPlaylists[playlist] = [];
+      this.setState({
+        playlists: newPlaylists,
+        playlistList: newPlaylistList
+      })
+    } else if (this.state.playlist.hasOwnProperty(playlist)) {
+
+    } else {
+      let newPlayLists = this.state.playlists;
+      newPlaylists[playlist] = [];
+      newPlaylistList.push(playlist);
+      this.setState({
+      playlists: newPlaylists,
+      playListList: newPlaylistList
+      })
+    }
+  }
+
+  addToPlaylist(artistInfo) {
+    console.log('Artist Information----', artistInfo);
+    if (this.state.currentPlaylist && this.state.playlists) {
+      let updatedPlaylists = this.state.playlists;
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName]);
+      this.setState({
+        playlists: updatedPlaylists
+      })
+      console.log(updatedPlaylists)
+    } 
+  }
+
+  setCurrentPlaylist(playlist) {
+    console.log('The Current Playlist is----', playlist);
     this.setState({
-      newPlaylist: playlist
+      currentPlaylist: playlist
     })
   }
 
@@ -194,6 +238,7 @@ class App extends React.Component {
                   results={this.state.searchResults}
                   process={this.process}
                   searchResultsLoading={this.state.searchResultsLoading}
+                  addToPlaylist={this.addToPlaylist}
                 />
               : null
             }
@@ -236,14 +281,11 @@ class App extends React.Component {
             <Stats/> : null
             }
 
-            <PlaylistEntry />
+            <PlaylistEntry playlistList={this.state.playlistList} addToPlaylist={this.state.addToPlaylist} createNewPlaylists={this.createNewPlaylists} setCurrentPlaylist={this.setCurrentPlaylist} currentPlaylist={this.state.currentPlaylist} playlists={this.state.playlists} />
           </div>
-          <div className="col3">
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
-              
-          </div>
         </div>
       </div>
     );
