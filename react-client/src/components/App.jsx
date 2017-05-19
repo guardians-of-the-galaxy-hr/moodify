@@ -9,6 +9,7 @@ import Mood from './Mood.jsx';
 import Player from './Player.jsx';
 import Search from './Search.jsx';
 import Header from './Header.jsx';
+import Stats from './Stats.jsx';
 import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
@@ -36,6 +37,7 @@ class App extends React.Component {
       showMood: false,
       showResults: false,
       showResultsUser: false,
+      showStats: false,
       showPrev: false,
       upDown: true,
       url: window.location.href,
@@ -47,6 +49,7 @@ class App extends React.Component {
     this.process = this.process.bind(this);
     this.showResults = this.showResults.bind(this);
     this.upDown = this.upDown.bind(this);
+    this.showUserStats = this.showUserStats.bind(this);
     this.upDownUser = this.upDownUser.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
@@ -134,6 +137,13 @@ class App extends React.Component {
     });
   }
 
+  showUserStats() {
+    console.log("hello");
+    this.setState({
+      showStats: !this.state.showStats
+    });
+  }
+
   loadPastSearchResults(trackId) {
     axios.post('/loadPastSearchResults', {track_id: trackId}).then(res => {
       let songData = res.data[0];
@@ -192,20 +202,24 @@ class App extends React.Component {
           </div>
           <div className="col2">
             <User
-              showPrev={this.state.showResultsUser} 
-              prev={this.showResultsUser} 
-              upDown={this.state.upDownUser} 
-              runUpDown={this.upDownUser} 
-              process={this.process} 
-              searchResultsLoading={this.state.searchResultsLoadingUser} 
+              showPrev={this.state.showResultsUser}
+              prev={this.showResultsUser}
+              upDown={this.state.upDownUser}
+              runUpDown={this.upDownUser}
+              process={this.process}
+              searchResultsLoading={this.state.searchResultsLoadingUser}
               loadPastSearchResults={this.loadPastSearchResults}
+              showUserStats={this.showUserStats}
             />
             {this.state.showMood
-              ? <Mood 
-                  watson={this.state.watson} 
+              ? <Mood
+                  watson={this.state.watson}
                   songNameAndArtist={this.state.currentSongNameAndArtist}
                 />
               : null
+            }
+            {this.state.showStats ?
+            <Stats/> : null
             }
           </div>
         </div>

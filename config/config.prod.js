@@ -9,5 +9,7 @@ module.exports = {
   },
   MM_API_KEY: process.env.MM_API_KEY,
   DATABASE_URL: process.env.MONGODB_URI,
-  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY
+  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+  AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY
 };

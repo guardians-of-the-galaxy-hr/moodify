@@ -1,13 +1,20 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import axios from 'axios';
+// import { Button } from 'react-bootstrap';
+class Stats extends React.Component {
 
-class Stats extends Component {
+  fetchUserStats() {
+
+  }
+
   render() {
     return (
       <div>
-        <P>hello from Stats component</P>
-        <Button class="btn">Click for Stats</Button>
+
+
       </div>
     );
   }
 }
+
+export default Stats;

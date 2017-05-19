@@ -78,7 +78,7 @@ var findUser = function (username, callback) {
       callback(err, data);
     }
   });
-}
+};
 
 module.exports.findUser = findUser;
 module.exports.findUserAsync = Promise.promisify(findUser);
@@ -91,7 +91,7 @@ var findSong = function (song_id, callback) {
       callback(err, data);
     }
   });
-}
+};
 
 module.exports.findSong = findSong;
 module.exports.findSongAsync = Promise.promisify(findSong);

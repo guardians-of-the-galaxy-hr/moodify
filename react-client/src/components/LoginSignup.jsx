@@ -28,7 +28,7 @@ class LoginSignup extends React.Component {
     axios.post('/login', loginInfo)
     .then((res) => {
       if (!res.data.errorMessage) {
-        this.setState ({redirect: true});
+        this.setState ({redirect: true, });
         console.log('Login successful!');
       } else if (res.data.errorMessage) {
         this.setState({userError: res.data.errorMessage});
