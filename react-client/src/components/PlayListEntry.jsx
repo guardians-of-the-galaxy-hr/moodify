@@ -24,6 +24,7 @@ class PlaylistEntry extends React.Component {
   createPlaylist(event) {
     this.props.createNewPlaylists(this.state.entry)
     event.preventDefault();
+    var hello = '';
   }
 
   render() {
