@@ -18,7 +18,13 @@ class Playlist extends React.Component {
             className="searchText" 
             key={index} 
             value={value} 
-            onClick={() => this.props.process(value[2][value[3]].track)}>Artist: {value[0]} Title: {value[1]}</li>
+            onClick={() => {
+              this.props.process(value[2][value[3]].track);
+            }}
+          >
+          Artist: {value[0]}
+          Title: {value[1]}
+          </li>
         })}
       </div>
     )
