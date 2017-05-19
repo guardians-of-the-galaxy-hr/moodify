@@ -20,6 +20,7 @@ class SearchResults extends React.Component {
     this.props.addToPlaylist(artistInfo);
   }
 
+
   addToPlayList(artistDetails) {
     this.props.addToPlaylist(artistDetails);
   }
