@@ -12,6 +12,7 @@ const auth = require('./auth.js');
 const mmHelpers = require('./musixMatchHelpers.js');
 const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
+const googleTranslateHelpers = require('./googleTranslateHelpers.js');
 const db = require('../database');
 
 // initialize and set up app
@@ -74,6 +75,10 @@ app.post('/process', (req, res) => {
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
+  let lyricsLang;
+  let lyricsEnglish;
+  let artistEnglish;
+  let titleEnglish;
 
   return mmHelpers.getLyricsByTrackId(input.track_id)
   .then(data => {
@@ -82,8 +87,36 @@ app.post('/process', (req, res) => {
     input.lyrics = lyrics.slice(0, (lyrics.indexOf('*******')));
     return;
   })
-  .then(() => {
-    return watsonHelpers.queryWatsonToneHelper(input.lyrics)
+  .then (() => {
+    return googleTranslateHelpers.googleTranslate.detectLanguageAsync(input.lyrics);
+  })
+  .then ((detection) => {
+    lyricsLang = detection.language;
+    console.log ('language', lyricsLang);
+    if (lyricsLang !== 'en') {
+      return googleTranslateHelpers.translateToEnglish(detection.originalText);
+    }
+    return input.lyrics;
+  })
+  .then((lyrics) => {
+    lyricsEnglish = lyrics;    
+    if (lyricsLang !== 'en') {
+      return googleTranslateHelpers.translateToEnglish(songNameAndArtist[0]);
+    }
+    return;
+  })
+  .then((artist) => {
+    if (lyricsLang !== 'en') {
+      artistEnglish = artist;
+      return googleTranslateHelpers.translateToEnglish(songNameAndArtist[1]);
+    }
+    return;
+  })
+  .then((title) => {
+    if (lyricsLang !== 'en') {
+      titleEnglish = title;
+    }
+    return watsonHelpers.queryWatsonToneHelper(lyricsEnglish);
   })
   .then(data => {
     watsonData = {
@@ -124,7 +157,7 @@ app.post('/process', (req, res) => {
     })
   })
   .then(() => {
-    res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri]);
+    res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri, lyricsLang, lyricsEnglish, artistEnglish, titleEnglish]);
   })
   .catch((error) => {
     console.log('/PROCESS ERROR: ', error);
@@ -134,36 +167,32 @@ app.post('/process', (req, res) => {
 
 app.get('/pastSearches', (req, res) => {
   const username = req.session.username;
-  return new Promise ((resolve, reject) => {
-    db.User.where({ username: username }).findOne((err, user) => {
-      if (err) { reject(err); }
-      const songs = user.songs;
-      resolve(songs);
-    })
-  })
-  .then(songs => {
+  var songArray = [];
+
+  db.findUserAsync(username)
+  .then((user)=> {
+    var songs = user.songs;
     if (songs.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
-    return new Promise ((resolve, reject) => {
-      songArray = []
-      songs.forEach((songId, index) => {
-        db.Song.where({ track_id: songId }).findOne((err, songData) => {
-          if (err) { reject(err); }
-          songArray.push({
-            track_id: songId,
-            track_name: songData.track_name,
-            artist_name: songData.artist_name
-          });
-          if (index === songs.length - 1) { resolve(songArray); }
+    return Promise.map(songs, function(songId) {
+      return db.findSongAsync(songId)
+      .then((data) => {
+        songArray.push({
+          track_id: songId,
+          track_name: data.track_name,
+          artist_name: data.artist_name
         });
-      });
-    })
+      })
+      .catch((err) => {
+        console.log (err);
+      })
+    });
   })
-  .then((songArray) => {
+  .then(() => {
     res.send(songArray);
   })
-  .catch(err => {
-    res.send({errorMessage: 'No Past Searches'});
-  })
+  .catch((err) => {
+    res.send({errorMessage: err});
+  });
 });
 
 app.post('/loadPastSearchResults', (req, res) => {

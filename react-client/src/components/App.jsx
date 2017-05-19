@@ -22,6 +22,10 @@ class App extends React.Component {
       currentLyrics: '',
       watson: {},
       spotifyURI: null,
+      lyricsLang: 'en',
+      lyricsEnglish: '',
+      artistEnglish: '',
+      titleEnglish: '',
       searchResults: [],
       searchResultsUser: [],
       searchResultsLoading: false,
@@ -92,6 +96,10 @@ class App extends React.Component {
         currentLyrics: data[1],
         watson: data[2],
         spotifyURI: data[3],
+        lyricsLang: data[4],
+        lyricsEnglish: data[5],
+        artistEnglish: data[6],
+        titleEnglish: data[7],
         spotifyLoading: false,
         lyricsLoading: false,
         showLyrics: true,
@@ -151,17 +159,54 @@ class App extends React.Component {
         <Header url={this.state.url}/>
         <div className="container">
           <div className="col1">
-            <Search search={this.search} prev={this.showResults} showPrev={this.state.showPrev} upDown={this.state.upDown} runUpDown={this.upDown}/> {this.state.showResults
-              ? <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
-              : null}
+            <Search
+              search={this.search}
+              prev={this.showResults}
+              showPrev={this.state.showPrev}
+              upDown={this.state.upDown}
+              runUpDown={this.upDown}
+            />
+            {this.state.showResults
+              ? <SearchResults
+                  results={this.state.searchResults}
+                  process={this.process}
+                  searchResultsLoading={this.state.searchResultsLoading}
+                />
+              : null
+            }
             {this.state.showPlayer
-              ? <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null}
+              ? <Lyrics
+                  showPlayer={this.state.showPlayer}
+                  spotifyURI={this.state.spotifyURI}
+                  loading={this.state.spotifyLoading}
+                  lyrics={this.state.currentLyrics}
+                  loading={this.state.lyricsLoading}
+                  songNameAndArtist={this.state.currentSongNameAndArtist}
+                  lyricsLang={this.state.lyricsLang}
+                  lyricsEnglish={this.state.lyricsEnglish}
+                  artistEnglish={this.state.artistEnglish}
+                  titleEnglish={this.state.titleEnglish}
+                />
+              : null
+            }
           </div>
           <div className="col2">
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
-              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null}
+            <User
+              showPrev={this.state.showResultsUser} 
+              prev={this.showResultsUser} 
+              upDown={this.state.upDownUser} 
+              runUpDown={this.upDownUser} 
+              process={this.process} 
+              searchResultsLoading={this.state.searchResultsLoadingUser} 
+              loadPastSearchResults={this.loadPastSearchResults}
+            />
+            {this.state.showMood
+              ? <Mood 
+                  watson={this.state.watson} 
+                  songNameAndArtist={this.state.currentSongNameAndArtist}
+                />
+              : null
+            }
           </div>
         </div>
       </div>
