@@ -26,6 +26,7 @@ class PlaylistEntry extends React.Component {
       entry: event.target.value
     });
     event.preventDefault();
+    var hello = '';
   }
 
   render() {
