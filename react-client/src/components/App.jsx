@@ -56,7 +56,8 @@ class App extends React.Component {
       showTweets: false,
       tweets: [],
       AllTweets: [],    
-
+      playlists: null,
+      currentPlaylist: null,
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -68,6 +69,8 @@ class App extends React.Component {
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
     this.showUserStats = this.showUserStats.bind(this);
     this.updateUserStats = this.updateUserStats.bind(this);
+    this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
+    this.addToPlaylist = this.addToPlaylist.bind(this);
   }
 
   search(title, artist) {
@@ -200,6 +203,25 @@ class App extends React.Component {
     });
   }
 
+  addToPlaylist(artistInfo) {
+    console.log('Artist Information----', artistInfo);
+    if (this.state.currentPlaylist && this.state.playlists) {
+      let updatedPlaylists = this.state.playlists;
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName]);
+      this.setState({
+        playlists: updatedPlaylists
+      })
+      console.log(updatedPlaylists)
+    } 
+  }
+
+  setCurrentPlaylist(playlist) {
+    console.log('The Current Playlist is----', playlist);
+    this.setState({
+      currentPlaylist: playlist
+    })
+  }
+
   loadPastSearchResults(trackId) {
     axios.post('/loadPastSearchResults', {track_id: trackId}).then(res => {
       let songData = res.data[0];
@@ -238,6 +260,7 @@ class App extends React.Component {
                   process={this.process}
                   searchTweets={this.searchTweets}
                   searchResultsLoading={this.state.searchResultsLoading}
+                  addToPlaylist={this.addToPlaylist}
                 />
               : null
             }
@@ -293,14 +316,11 @@ class App extends React.Component {
               /> : null
             }
 
-            <PlaylistEntry />
+            <PlaylistEntry playlistList={this.state.playlistList} addToPlaylist={this.state.addToPlaylist} createNewPlaylists={this.createNewPlaylists} setCurrentPlaylist={this.setCurrentPlaylist} currentPlaylist={this.state.currentPlaylist} playlists={this.state.playlists} />
           </div>
-          <div className="col3">
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
-              
-          </div>
         </div>
       </div>
     );
