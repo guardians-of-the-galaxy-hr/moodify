@@ -20,6 +20,10 @@ class SearchResults extends React.Component {
     this.props.addToPlaylist(artistInfo);
   }
 
+  addToPlayList(artistDetails) {
+    this.props.addToPlaylist(artistDetails);
+  }
+
   render() {
     if (this.props.searchResultsLoading) {
       return (
@@ -39,7 +43,8 @@ class SearchResults extends React.Component {
               trackName: trackObj.track.track_name, 
               artist: trackObj.track.artist_name,
               processResults: this.props.results.track_list,
-              index: i
+              index: i,
+              artist: trackObj.track.artist_name
             }
             return (
               <div>

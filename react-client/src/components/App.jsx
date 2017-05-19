@@ -197,9 +197,22 @@ class App extends React.Component {
 
   }
 
-  gatherPlaylist(playlist) {
+  addToPlaylist(artistInfo) {
+    console.log('Artist Information----', artistInfo);
+    if (this.state.currentPlaylist && this.state.playlists) {
+      let updatedPlaylists = this.state.playlists;
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName]);
+      this.setState({
+        playlists: updatedPlaylists
+      })
+      console.log(updatedPlaylists)
+    } 
+  }
+
+  setCurrentPlaylist(playlist) {
+    console.log('The Current Playlist is----', playlist);
     this.setState({
-      newPlaylist: playlist
+      currentPlaylist: playlist
     })
   }
 
@@ -342,9 +355,6 @@ class App extends React.Component {
               /> : null
             }
           </div>
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
-              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null}
         </div>
       </div>
     );

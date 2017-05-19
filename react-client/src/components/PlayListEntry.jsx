@@ -25,6 +25,7 @@ class PlaylistEntry extends React.Component {
     this.setState({
       entry: event.target.value
     });
+    event.preventDefault();
   }
 
   render() {

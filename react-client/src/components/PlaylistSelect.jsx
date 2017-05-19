@@ -18,6 +18,7 @@ class PlaylistSelect extends React.Component {
       selectedPlaylist: event.target.value,
       showPlaylist: true
     });
+    event.preventDetault();
   }
 
   render() {

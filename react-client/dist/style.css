@@ -521,13 +521,16 @@ h6 {
 }
 =======
 .playlist-entry {
-  display: inline-block;
   float: right;
+  position: relative;
 }
 
-.playlist-select {
-  display: inline;
-  float: center;
+#playlist-select {
+  display: inline-block;
   width: 100px;
 }
->>>>>>> creating playlist
+
+.playlist {
+  display: block;
+  float: left;
+}
