@@ -8,5 +8,6 @@ module.exports = {
     password: process.env.WATSON_NLU_PASSWORD
   },
   MM_API_KEY: process.env.MM_API_KEY,
-  DATABASE_URL: process.env.MONGODB_URI
+  DATABASE_URL: process.env.MONGODB_URI,
+  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY
 };
