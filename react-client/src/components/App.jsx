@@ -52,7 +52,8 @@ class App extends React.Component {
       }
       playlists: null,
       currentPlaylist: null,
-      playlistList: []
+      playlistList: [],
+      currentPlaylist: null
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -258,6 +259,7 @@ class App extends React.Component {
                 />
               : null
             }
+
             {this.state.showPlayer
               ? <Lyrics
                   showPlayer={this.state.showPlayer}
@@ -300,7 +302,6 @@ class App extends React.Component {
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
-
             <PlaylistEntry playlistList={this.state.playlistList} addToPlaylist={this.state.addToPlaylist} createNewPlaylists={this.createNewPlaylists} setCurrentPlaylist={this.setCurrentPlaylist} currentPlaylist={this.state.currentPlaylist} playlists={this.state.playlists} />
           </div>
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood

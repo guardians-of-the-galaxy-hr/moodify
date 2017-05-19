@@ -14,6 +14,7 @@ class SearchResults extends React.Component {
     this.props.process(this.props.results.track_list[index].track);
   }
 
+
   addToPlayList(artistDetails) {
     this.props.addToPlaylist(artistDetails);
   }
