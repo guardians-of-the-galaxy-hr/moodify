@@ -214,7 +214,6 @@ class App extends React.Component {
   }
 
   createNewPlaylists(playlistName) {
-    console.log(this)
     if (this.state.playlists.hasOwnProperty(playlistName)) { return };
     let playlists = this.state.playlists;
     playlists[playlistName] = [];
