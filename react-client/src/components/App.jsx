@@ -304,14 +304,11 @@ class App extends React.Component {
 
           <div className="col2">
             <PlaylistEntry 
-              playlistList={this.state.playlistList} 
               addToPlaylist={this.state.addToPlaylist} 
               createNewPlaylists={this.createNewPlaylists} 
               setCurrentPlaylist={this.setCurrentPlaylist} 
               currentPlaylist={this.state.currentPlaylist} 
               playlists={this.state.playlists} 
-              currentPlaylist={this.state.currentPlaylist}
-              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
               process={this.process}
             />
             <User
