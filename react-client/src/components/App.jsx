@@ -135,13 +135,16 @@ class App extends React.Component {
       }
     })
     .then((res) => {
-      if (!res.data) {
+      if (res.data.statuses.length === 0) {
         console.log('error');
+        this.state.tweets = [{content: 'Unable to get any Tweets', time: 4}];
+      } else {
+        console.log('I passeddddddddd');
+        this.state.tweets = res.data.statuses.map((tweet, index) => {
+          return ({content: tweet.text, time: 4});
+        });
+        this.state.AllTweets = res.data;
       }
-      this.state.tweets = res.data.statuses.map((tweet, index) => {
-        return ({content: tweet.text, time: 4});
-      });
-      this.state.AllTweets = res.data;
       //console.log(res.data.statuses);     
     });
 

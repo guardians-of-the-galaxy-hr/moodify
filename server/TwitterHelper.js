@@ -11,7 +11,7 @@ var twitter = new Twit({
   consumer_secret: TwitterKeys.consumerSecret,
   access_token: TwitterKeys.accessToken,
   access_token_secret: TwitterKeys.accessTokenSecret,
-  timeout_ms: TwitterKeys.timeout
+  timeout_ms: 60 * 1000
 });
 
 Promise.promisifyAll(twitter);
