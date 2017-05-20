@@ -1,7 +1,7 @@
 import React from 'react';
 import PlaylistSelect from './PlaylistSelect.jsx';
 
-class PlaylistEntry extends React.Component {
+class PlayListEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = 
@@ -58,4 +58,4 @@ class PlaylistEntry extends React.Component {
 
 
 
-export default PlaylistEntry;
+export default PlayListEntry;
