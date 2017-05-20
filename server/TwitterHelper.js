@@ -16,7 +16,7 @@ var twitter = new Twit({
 Promise.promisifyAll(twitter);
 
 var queryTwitter = (artistHashTag, callback) => {
-  twitter.getAsync('search/tweets', { q: `#${artistHashTag} since:2017-03-11`, count: 5 })
+  twitter.getAsync('search/tweets', { q: `#${artistHashTag} since:2016-03-11`, count: 20 })
   .then((data) => {
     //console.log('from twitterHelper data:', data);  
     callback(data);   
