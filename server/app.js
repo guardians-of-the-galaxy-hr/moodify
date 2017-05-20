@@ -31,6 +31,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
 let sess = {};
+var selectedSong = {};
 
 // other variables
 var usernameStats = '';
@@ -191,10 +192,13 @@ app.get('/searchTweets', (req, res) => {
 
   twitterHelpers.queryTwitterHelper(req.query.ArtistHashTag, (response) => {
     console.log('from /searchTweets Server', response);
+    selectedSong = response;
     res.send(response);
   });
   
-  
+  app.get('/allTweets', (req, res) => {
+    res.send(selectedSong);
+  });
 
 });
 
