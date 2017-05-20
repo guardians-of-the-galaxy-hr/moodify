@@ -22,7 +22,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: "ssshhh", resave: false, saveUninitialized: true}));
+app.use(session({secret: 'ssshhh', resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
@@ -183,6 +183,11 @@ app.post('/process', (req, res) => {
     console.log('/PROCESS ERROR: ', error);
     res.send(error);
   });
+});
+app.get('/searchTweets', (req, res) => {
+  console.log('from /searchTweets Server');
+  res.send();
+
 });
 
 app.get('/pastSearches', (req, res) => {

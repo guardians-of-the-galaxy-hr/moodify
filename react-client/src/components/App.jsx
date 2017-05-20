@@ -14,6 +14,7 @@ import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
+import TweetResults from './TweetResults.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -48,7 +49,9 @@ class App extends React.Component {
         username: '',
         listenedSongsList: [],
         totalSongsListened: 0,
-      }
+      },
+      showTweets: false,
+
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -86,7 +89,8 @@ class App extends React.Component {
       upDownUser: false,
       showLyrics: false,
       showMood: false,
-      upDown: true
+      upDown: true,
+      showTweets: true,
     });
 
     let input = {};
@@ -121,8 +125,10 @@ class App extends React.Component {
 
   showResults() {
     this.setState({
-      showResults: !this.state.showResults
+      showResults: !this.state.showResults,
+      showTweets: !this.state.showTweets,
     });
+    console.log(this.state.showTweets);
   }
 
   showResultsUser() {
@@ -213,6 +219,15 @@ class App extends React.Component {
                   artistEnglish={this.state.artistEnglish}
                   titleEnglish={this.state.titleEnglish}
                 />
+              : null
+            }    
+          </div>
+          <div className="col1">
+            {this.state.showTweets
+              ? <TweetResults 
+                  loading={this.state.spotifyLoading} 
+                  songNameAndArtist={this.state.currentSongNameAndArtist}
+                /> 
               : null
             }
           </div>
