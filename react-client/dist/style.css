@@ -27,7 +27,7 @@ html {
 }
 
 .col2 {
-  display: flex;
+  display: inline-block;
   flex: 1 1 auto;
   order: 2;
   flex-direction: column;
@@ -529,7 +529,12 @@ h6 {
   width: 100px;
 }
 
-.playlist {
-  display: block;
+.playlistEntry {
+  display: inline-block;
   float: left;
+}
+
+.user {
+  display: inline-block;
+  float: right;
 }
