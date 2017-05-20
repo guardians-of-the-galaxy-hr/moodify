@@ -11,11 +11,23 @@ class Lyrics extends React.Component {
       langOriginal: true
     };
     this.toggleLang = this.toggleLang.bind(this);
+    this.increamentSongsListened = this.increamentSongsListened.bind(this);
   }
 
   toggleLang () {
     console.log ('toggling');
     this.setState({langOriginal: !this.state.langOriginal});
+  }
+
+  increamentSongsListened () {
+    console.log("321");
+    // axios.post('/incrementCount')
+    // .then(response => {
+
+    // })
+    // .catch(error => {
+
+    // });
   }
 
   render() {
@@ -38,11 +50,11 @@ class Lyrics extends React.Component {
             : <h6>{this.props.artistEnglish + ' - ' + this.props.titleEnglish}</h6>
           }
           {this.props.showPlayer
-            ? <Player spotifyURI={this.props.spotifyURI} loading={this.props.loading}/>
+            ? <Player spotifyURI={this.props.spotifyURI} loading={this.props.loading} onClick={this.increamentSongsListened}/>
             : null }
           {this.state.langOriginal
             ? <pre>{this.props.lyrics}</pre>
-            : <pre>{this.props.lyricsEnglish}</pre>            
+            : <pre>{this.props.lyricsEnglish}</pre>
           }
         </div>
       );
@@ -51,3 +63,4 @@ class Lyrics extends React.Component {
 }
 
 export default Lyrics;
+
