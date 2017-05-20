@@ -16,7 +16,7 @@ import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PublicTweets from './PublicTweets.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
-import TweetResults from './TweetResults.jsx';
+import TweetResults from './TweetResults.jsx'
 
 class App extends React.Component {
   constructor(props) {
