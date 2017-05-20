@@ -11,7 +11,7 @@ class Search extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleArtistChange = this.handleArtistChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.prevResults = this.prevResults.bind(this);
+    this.prevResults = this.prevResults.bind(this)
   }
 
   handleTitleChange(e) { this.setState(
