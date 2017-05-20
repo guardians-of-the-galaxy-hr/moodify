@@ -79,6 +79,7 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 app.post('/process', (req, res) => {
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
+  console.log("Song name and artist", songNameAndArtist)
   let watsonData = {};
   let lyricsLang;
   let lyricsEnglish;

@@ -14,7 +14,6 @@ class PlaylistSelect extends React.Component {
 
   displayPlaylist(event) {
     this.props.setCurrentPlaylist(event.target.value);
-    event.preventDetault();
     this.setState({
       selectedPlaylist: event.target.value,
       showPlaylist: true
@@ -27,12 +26,12 @@ class PlaylistSelect extends React.Component {
         <select className="playlist-entry" id="playlist-select" value={this.state.selectedPlaylist} onChange={this.displayPlaylist}>
           {
             this.props.playlists ? 
-              this.props.playlistList.map((playlist, index) => {
-              return <PlaylistOption key={index} playlist={playlist} />
+              Object.keys(this.props.playlists).map((playlistName, index) => {
+              return <PlaylistOption key={index} playlistName={playlistName} setCurrentPlaylist={this.props.setCurrentPlaylist} />
               }) : null
           }
         </select>
-        {this.state.showPlaylist ? <Playlist className="playlist" playlist={this.state.selectedPlaylist} /> : null}
+        {this.state.showPlaylist ? <Playlist search={this.props.search} className="playlist" playlists={this.props.playlists} currentPlaylist={this.props.currentPlaylist} currentSongNameAndArtist={this.props.currentSongNameAndArtist} /> : null}
       </div>
     )
   }
