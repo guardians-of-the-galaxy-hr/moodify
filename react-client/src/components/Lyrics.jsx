@@ -62,5 +62,6 @@ class Lyrics extends React.Component {
   }
 }
 
+
 export default Lyrics;
 

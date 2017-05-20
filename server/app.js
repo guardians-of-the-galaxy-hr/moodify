@@ -191,7 +191,6 @@ app.post('/process', (req, res) => {
 app.get('/searchTweets', (req, res) => {
 
   twitterHelpers.queryTwitterHelper(req.query.ArtistHashTag, (response) => {
-    console.log('from /searchTweets Server', response);
     selectedSong = response;
     res.send(response);
   });

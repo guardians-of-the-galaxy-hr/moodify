@@ -226,6 +226,7 @@ class App extends React.Component {
               ? <SearchResults
                   results={this.state.searchResults}
                   process={this.process}
+                  searchTweets={this.searchTweets}
                   searchResultsLoading={this.state.searchResultsLoading}
                 />
               : null
