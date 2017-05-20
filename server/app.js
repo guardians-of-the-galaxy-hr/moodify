@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const Promise = require('bluebird');
 
+
 // other module exports
 const auth = require('./auth.js');
 const mmHelpers = require('./musixMatchHelpers.js');
@@ -14,7 +15,9 @@ const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const googleTranslateHelpers = require('./googleTranslateHelpers.js');
 const userStatsHelpers = require('./userStatsHelpers');
+const twitterHelpers = require('./TwitterHelper.js');
 const db = require('../database');
+const config = require('../config/index.js');
 
 // initialize and set up app
 const app = express();
@@ -185,8 +188,13 @@ app.post('/process', (req, res) => {
   });
 });
 app.get('/searchTweets', (req, res) => {
-  console.log('from /searchTweets Server');
-  res.send();
+
+  twitterHelpers.queryTwitterHelper(req.query.ArtistHashTag, (response) => {
+    console.log('from /searchTweets Server', response);
+    res.send(response);
+  });
+  
+  
 
 });
 

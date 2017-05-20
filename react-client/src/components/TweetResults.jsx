@@ -5,17 +5,22 @@ class TweetResults extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      tweets: []
     };
     this.getTweets = this.getTweets.bind(this);
   }
   getTweets() {
-    this.props.songNameAndArtist;
-    axios.get('/searchTweets').then((res) => {
+    axios.get('/searchTweets', {
+      params: {
+        ArtistHashTag: this.props.songNameAndArtist[0]
+      }
+    })
+    .then((res) => {
       if (!res.data) {
         console.log('error');
       }
-      console.log(res.data);
+      console.log(res.data.statuses);
+      this.setState({tweets: res.data.statuses});
     });
   }
   render() {
@@ -23,6 +28,13 @@ class TweetResults extends React.Component {
       return (
         <div className="TweetsLoading">
           <button className="loginButton" onClick= {this.getTweets}> Tweets </button>
+          <div>
+ 
+              {this.state.tweets.map((tweet, index) => {
+                return <div key={index}>{tweet.text}</div>;
+              })}
+
+          </div>
         </div>
       );
     } else {

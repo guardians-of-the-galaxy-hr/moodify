@@ -10,8 +10,9 @@ class SearchResults extends React.Component {
 
   handleClick(e) {
     let index = e.target.getAttribute('value');
-    console.log(this.props.results.track_list[index].track);
     this.props.process(this.props.results.track_list[index].track);
+    this.props.searchTweets(this.props.results.track_list[index].track.artist_name);
+    console.log(this.props.results.track_list[index].track);
   }
 
   render() {

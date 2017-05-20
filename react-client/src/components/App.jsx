@@ -55,6 +55,7 @@ class App extends React.Component {
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
+    this.searchTweets = this.searchTweets.bind(this);
     this.showResults = this.showResults.bind(this);
     this.upDown = this.upDown.bind(this);
     this.upDownUser = this.upDownUser.bind(this);
@@ -117,10 +118,27 @@ class App extends React.Component {
         lyricsLoading: false,
         showLyrics: true,
         showMood: true
-      });
+      });     
     }).catch(error => {
       throw error;
+    });  
+  }
+
+  searchTweets(trackAlbumArtist) {
+    console.log("from App Search Tweets")
+    axios.get('/searchTweets', {
+      params: {
+        ArtistHashTag: trackAlbumArtist
+      }
+    })
+    .then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+      console.log(res.data.statuses);
+      this.setState({tweets: res.data.statuses});
     });
+
   }
 
   showResults() {
