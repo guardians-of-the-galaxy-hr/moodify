@@ -194,23 +194,9 @@ class App extends React.Component {
     this.setState({
       showStats: !this.state.showStats
     });
-
-  }
-
-  addToPlaylist(artistInfo) {
-    console.log('Artist Information----', artistInfo);
-    if (this.state.currentPlaylist && this.state.playlists) {
-      let updatedPlaylists = this.state.playlists;
-      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName]);
-      this.setState({
-        playlists: updatedPlaylists
-      })
-      console.log(updatedPlaylists)
-    } 
-  }
+  } 
 
   setCurrentPlaylist(playlist) {
-    console.log('The Current Playlist is----', playlist);
     this.setState({
       currentPlaylist: playlist
     })
@@ -245,7 +231,7 @@ class App extends React.Component {
         playlists: updatedPlaylists
       })
     } else {
-      alert('Please create a playlist first!');
+      alert('Please create or select a playlist first!');
     }
   }
 
@@ -324,14 +310,6 @@ class App extends React.Component {
           </div>
 
           <div className="col2">
-            <PlaylistEntry 
-              addToPlaylist={this.state.addToPlaylist} 
-              createNewPlaylists={this.createNewPlaylists} 
-              setCurrentPlaylist={this.setCurrentPlaylist} 
-              currentPlaylist={this.state.currentPlaylist} 
-              playlists={this.state.playlists} 
-              process={this.process}
-            />
             <User
               showPrev={this.state.showResultsUser}
               prev={this.showResultsUser}
@@ -354,6 +332,14 @@ class App extends React.Component {
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
+            <PlaylistEntry 
+              addToPlaylist={this.state.addToPlaylist} 
+              createNewPlaylists={this.createNewPlaylists} 
+              setCurrentPlaylist={this.setCurrentPlaylist} 
+              currentPlaylist={this.state.currentPlaylist} 
+              playlists={this.state.playlists} 
+              process={this.process}
+            />
           </div>
         </div>
       </div>
