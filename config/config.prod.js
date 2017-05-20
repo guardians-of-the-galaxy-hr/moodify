@@ -8,10 +8,10 @@ module.exports = {
     password: process.env.WATSON_NLU_PASSWORD
   },
   TWITTER_API_KEY: {
-    consumerKey: process.env.TWITTER_API_CONSUMERKEY,
-    consumerSecret: process.env.TWITTER_API_CONSUMERSECRET,
-    accessToken: process.env.TWITTER_API_ACCESSTOKEN,
-    accessTokenSecret: process.env.TWITTER_API_ACCESSTOKENSECRET,
+    consumerKey: process.env.TWITTER_API_CONSUMER_KEY,
+    consumerSecret: process.env.TWITTER_API_CONSUMER_SECRET,
+    accessToken: process.env.TWITTER_API_ACCESS_TOKEN,
+    accessTokenSecret: process.env.TWITTER_API_ACCESS_TOKEN_SECRET,
     timeout: 60 * 1000,
   },
   MM_API_KEY: process.env.MM_API_KEY,
