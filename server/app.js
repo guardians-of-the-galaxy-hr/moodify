@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const Promise = require('bluebird');
 
+
 // other module exports
 const auth = require('./auth.js');
 const mmHelpers = require('./musixMatchHelpers.js');
@@ -14,7 +15,9 @@ const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const googleTranslateHelpers = require('./googleTranslateHelpers.js');
 const userStatsHelpers = require('./userStatsHelpers');
+const twitterHelpers = require('./TwitterHelper.js');
 const db = require('../database');
+const config = require('../config/index.js');
 
 // initialize and set up app
 const app = express();
@@ -22,12 +25,13 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: "ssshhh", resave: false, saveUninitialized: true}));
+app.use(session({secret: 'ssshhh', resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
 let sess = {};
+var selectedSong = {};
 
 // other variables
 var usernameStats = '';
@@ -184,11 +188,22 @@ app.post('/process', (req, res) => {
     res.send(error);
   });
 });
+app.get('/searchTweets', (req, res) => {
+
+  twitterHelpers.queryTwitterHelper(req.query.ArtistHashTag, (response) => {
+    selectedSong = response;
+    res.send(response);
+  });
+  
+  app.get('/allTweets', (req, res) => {
+    res.send(selectedSong);
+  });
+
+});
 
 app.get('/pastSearches', (req, res) => {
   const username = req.session.username;
   var songArray = [];
-
   db.findUserAsync(username)
   .then((user)=> {
     var songs = user.songs;
@@ -207,8 +222,10 @@ app.get('/pastSearches', (req, res) => {
     });
   })
   .then(() => {
-    if (songArray.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
-    else {
+    //res.send(songArray);
+    if (songArray.length === 0) { 
+      res.send({errorMessage: 'No Past Searches'}); 
+    } else {
       res.send(songArray);
     }
   })

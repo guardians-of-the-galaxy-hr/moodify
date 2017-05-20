@@ -18,14 +18,14 @@ db.once('open', () => {
 });
 
 let songSchema = mongoose.Schema({
-	track_id: {type: Number, unique: true},
-	track_name: String,
-	artist_name: String,
-	album_coverart_100x100: String,
-	album_coverart_350x350: String,
-	album_coverart_500x500: String,
-	album_coverart_800x800: String,
-	lyrics: String,
+  track_id: {type: Number, unique: true},
+  track_name: String,
+  artist_name: String,
+  album_coverart_100x100: String,
+  album_coverart_350x350: String,
+  album_coverart_500x500: String,
+  album_coverart_800x800: String,
+  lyrics: String,
   spotify_uri: String
 });
 songSchema.plugin(beautifyUnique);

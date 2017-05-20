@@ -13,7 +13,9 @@ import Stats from './Stats.jsx';
 import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
+import PublicTweets from './PublicTweets.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
+import TweetResults from './TweetResults.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,6 +41,7 @@ class App extends React.Component {
       showResultsUser: false,
       showStats: false,
       showPrev: false,
+      showTweets: false,
       upDown: true,
       url: window.location.href,
       loggedIn: false,
@@ -48,10 +51,15 @@ class App extends React.Component {
         username: '',
         listenedSongsList: [],
         totalSongsListened: 0,
-      }
+      },
+      showTweets: false,
+      tweets: [],
+      AllTweets: [],    
+
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
+    this.searchTweets = this.searchTweets.bind(this);
     this.showResults = this.showResults.bind(this);
     this.upDown = this.upDown.bind(this);
     this.upDownUser = this.upDownUser.bind(this);
@@ -86,7 +94,8 @@ class App extends React.Component {
       upDownUser: false,
       showLyrics: false,
       showMood: false,
-      upDown: true
+      upDown: true,
+      showTweets: true,
     });
 
     let input = {};
@@ -113,16 +122,40 @@ class App extends React.Component {
         lyricsLoading: false,
         showLyrics: true,
         showMood: true
-      });
+      });     
     }).catch(error => {
       throw error;
+    });  
+  }
+
+  searchTweets(trackAlbumArtist) {
+    axios.get('/searchTweets', {
+      params: {
+        ArtistHashTag: trackAlbumArtist
+      }
+    })
+    .then((res) => {
+      if (res.data.statuses.length === 0) {
+        console.log('error');
+        this.state.tweets = [{content: 'Unable to get any Tweets', time: 4}];
+      } else {
+        console.log('I passeddddddddd');
+        this.state.tweets = res.data.statuses.map((tweet, index) => {
+          return ({content: tweet.text, time: 4});
+        });
+        this.state.AllTweets = res.data;
+      }
+      //console.log(res.data.statuses);     
     });
+
   }
 
   showResults() {
     this.setState({
-      showResults: !this.state.showResults
+      showResults: !this.state.showResults,
+      showTweets: !this.state.showTweets,
     });
+    console.log(this.state.showTweets);
   }
 
   showResultsUser() {
@@ -196,6 +229,7 @@ class App extends React.Component {
               ? <SearchResults
                   results={this.state.searchResults}
                   process={this.process}
+                  searchTweets={this.searchTweets}
                   searchResultsLoading={this.state.searchResultsLoading}
                 />
               : null
@@ -214,8 +248,17 @@ class App extends React.Component {
                   titleEnglish={this.state.titleEnglish}
                 />
               : null
+            }    
+            {this.state.showTweets
+              ? <TweetResults 
+                  loading={this.state.spotifyLoading} 
+                  tweets={this.state.tweets} 
+                  allTweets={this.state.AllTweets}
+                /> 
+              : null
             }
           </div>
+
           <div className="col2">
             <User
               showPrev={this.state.showResultsUser}
