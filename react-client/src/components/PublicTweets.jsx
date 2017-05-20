@@ -9,7 +9,26 @@ class PublicTweets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allTweets: []
+      allTweets: [],
+      tweetData: {
+        id: 'XXX',
+        user: {
+          name: 'XXX',
+          screen_name: 'XXX',
+          profile_image_url: 'XXX'
+        },
+        text: 'XXX',
+        created_at: 'XXX',
+        favorite_count: 'XXX',
+        retweet_count: 'XXX',
+        entities: {
+          media: [],
+          urls: [],
+          user_mentions: [],
+          hashtags: [],
+          symbols: []
+        } 
+      }
     };
   } 
   componentDidMount() {
