@@ -11,12 +11,13 @@ class SearchResults extends React.Component {
 
   handleClick(e) {
     let index = e.target.getAttribute('value');
+    console.log('INDEX----', index);
     this.props.process(this.props.results.track_list[index].track);
   }
 
 
-  addToPlayList(artistDetails) {
-    this.props.addToPlaylist(artistDetails);
+  addToPlayList(artistInfo) {
+    this.props.addToPlaylist(artistInfo);
   }
 
   render() {
@@ -36,12 +37,14 @@ class SearchResults extends React.Component {
           {this.props.results.track_list.map((trackObj, i) => {
             let artistDetails = {
               trackName: trackObj.track.track_name, 
-              artist: trackObj.track.artist_name
+              artist: trackObj.track.artist_name,
+              processResults: this.props.results.track_list,
+              index: i
             }
             return (
               <div>
               <div className='searchText' key={i} value={i} onClick={this.handleClick} > {i + 1}. {trackObj.track.track_name} - {trackObj.track.artist_name }</div>
-              <button value={artistDetails} onClick={() => this.addToPlayList(artistDetails)} key={Math.random() * i + 3462 * Math.random()} >Add to playlist</button>
+              <div className='searchText' key={i + 1} value={i} onClick={() => this.addToPlayList(artistDetails)} >Add to playlist</div>
               </div>
             )})
           }

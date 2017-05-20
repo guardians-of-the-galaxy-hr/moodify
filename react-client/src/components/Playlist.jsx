@@ -25,12 +25,9 @@ class Playlist extends React.Component {
     }
   }
 
-  search(artistDetails) {
-    // console.log('artist and song details', value);
-    this.props.search(artistDetails[1], artistDetails[0]);;
-    // this.setState(
-    //   { title: '', artist: '', showPrev: true
-    // }); 
+  search(artistInfo) {
+    console.log('artist and song details', value);
+    this.props.process(this.props.results.track_list[index].track);
   }
 
   render() {
@@ -38,7 +35,11 @@ class Playlist extends React.Component {
       <div>
         <h2>Current Playlist: {this.props.currentPlaylist}</h2>
         {this.props.playlists[this.props.currentPlaylist].map((value, index) => {
-          return <li className="searchText" key={index} value={value} onClick={() => this.search(value)}>Artist: {value[0]} Title: {value[1]}</li>
+          return <li 
+            className="searchText" 
+            key={index} 
+            value={value} 
+            onClick={() => this.props.process(value[2][value[3]].track)}>Artist: {value[0]} Title: {value[1]}</li>
         })}
       </div>
     )

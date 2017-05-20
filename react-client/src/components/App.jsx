@@ -176,7 +176,7 @@ class App extends React.Component {
     console.log('Artist Information----', artistInfo);
     if (this.state.currentPlaylist && this.state.playlists) {
       let updatedPlaylists = this.state.playlists;
-      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName]);
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName, artistInfo.processResults, artistInfo.index]);
       this.setState({
         playlists: updatedPlaylists
       })
@@ -296,7 +296,7 @@ class App extends React.Component {
               playlists={this.state.playlists} 
               currentPlaylist={this.state.currentPlaylist}
               currentSongNameAndArtist={this.state.currentSongNameAndArtist}
-              search={this.search}
+              process={this.process}
             />
           </div>
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood

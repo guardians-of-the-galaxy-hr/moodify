@@ -164,6 +164,7 @@ app.post('/process', (req, res) => {
       if (req.session.username) {
         return db.User.where({username: req.session.username}).update({songs: songs});
       }
+      return db.User.where({username: req.session.username}).update({songs: songs});
     }
   })
   .then(() => {
