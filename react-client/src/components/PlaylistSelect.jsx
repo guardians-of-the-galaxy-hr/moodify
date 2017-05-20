@@ -23,15 +23,31 @@ class PlaylistSelect extends React.Component {
   render() {
     return (
       <div>
-        <select className="playlist-entry" id="playlist-select" value={this.state.selectedPlaylist} onChange={this.displayPlaylist}>
+        <select 
+          className="playlist-entry" 
+          id="playlist-select" 
+          value={this.state.selectedPlaylist} 
+          onChange={this.displayPlaylist}>
           {
             this.props.playlists ? 
               Object.keys(this.props.playlists).map((playlistName, index) => {
-              return <PlaylistOption key={index} playlistName={playlistName} setCurrentPlaylist={this.props.setCurrentPlaylist} />
+              return <PlaylistOption 
+                      key={index} 
+                      playlistName={playlistName} 
+                      setCurrentPlaylist={this.props.setCurrentPlaylist} 
+                    />
               }) : null
           }
         </select>
-        {this.state.showPlaylist ? <Playlist search={this.props.search} className="playlist" playlists={this.props.playlists} currentPlaylist={this.props.currentPlaylist} currentSongNameAndArtist={this.props.currentSongNameAndArtist} /> : null}
+        {this.state.showPlaylist ? 
+          <Playlist 
+            search={this.props.search} 
+            className="playlist" 
+            playlists={this.props.playlists} 
+            currentPlaylist={this.props.currentPlaylist} 
+            currentSongNameAndArtist={this.props.currentSongNameAndArtist}
+            process={this.props.process} 
+          /> : null}
       </div>
     )
   }
