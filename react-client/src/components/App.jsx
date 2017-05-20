@@ -56,7 +56,7 @@ class App extends React.Component {
       showTweets: false,
       tweets: [],
       AllTweets: [],    
-      playlists: null,
+      playlists: {},
       currentPlaylist: null
     };
     this.search = this.search.bind(this);
@@ -70,6 +70,7 @@ class App extends React.Component {
     this.showUserStats = this.showUserStats.bind(this);
     this.updateUserStats = this.updateUserStats.bind(this);
     this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
+    this.createNewPlaylists = this.createNewPlaylists.bind(this);
     this.addToPlaylist = this.addToPlaylist.bind(this);
   }
 
@@ -213,8 +214,8 @@ class App extends React.Component {
   }
 
   createNewPlaylists(playlistName) {
+    console.log(this)
     if (this.state.playlists.hasOwnProperty(playlistName)) { return };
-
     let playlists = this.state.playlists;
     playlists[playlistName] = [];
     this.setState({
@@ -231,7 +232,7 @@ class App extends React.Component {
         playlists: updatedPlaylists
       })
     } else {
-      alert('Please create or select a playlist first!');
+      alert('Please create a playlist first!');
     }
   }
 
@@ -333,11 +334,15 @@ class App extends React.Component {
               /> : null
             }
             <PlaylistEntry 
+              className="playlistEntry"
+              playlistList={this.state.playlistList} 
               addToPlaylist={this.state.addToPlaylist} 
               createNewPlaylists={this.createNewPlaylists} 
               setCurrentPlaylist={this.setCurrentPlaylist} 
               currentPlaylist={this.state.currentPlaylist} 
               playlists={this.state.playlists} 
+              currentPlaylist={this.state.currentPlaylist}
+              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
               process={this.process}
             />
           </div>

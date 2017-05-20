@@ -12,14 +12,6 @@ class Playlist extends React.Component {
     this.props.process(this.props.results.track_list[index].track);
   }
 
-  search(artistDetails) {
-    // console.log('artist and song details', value);
-    this.props.search(artistDetails[1], artistDetails[0]);;
-    // this.setState(
-    //   { title: '', artist: '', showPrev: true
-    // }); 
-  }
-
   render() {
     return (
       <div>

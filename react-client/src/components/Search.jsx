@@ -33,8 +33,6 @@ class Search extends React.Component {
       artist: '', 
       showPrev: true
     });
-    //This is what I am currently working on
-    //Have to actually make the single song load istead of the roster of songs
   }
 
   prevResults(e) {

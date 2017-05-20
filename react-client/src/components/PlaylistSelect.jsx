@@ -18,7 +18,6 @@ class PlaylistSelect extends React.Component {
       selectedPlaylist: event.target.value,
       showPlaylist: true
     });
-    event.preventDetault();
   }
 
   render() {
@@ -40,6 +39,15 @@ class PlaylistSelect extends React.Component {
               }) : null
           }
         </select>
+        {this.state.showPlaylist ? 
+          <Playlist 
+            search={this.props.search} 
+            className="playlist" 
+            playlists={this.props.playlists} 
+            currentPlaylist={this.props.currentPlaylist} 
+            currentSongNameAndArtist={this.props.currentSongNameAndArtist}
+            process={this.props.process} 
+          /> : null}
       </div>
     )
   }

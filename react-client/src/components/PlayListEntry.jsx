@@ -1,10 +1,11 @@
 import React from 'react';
 import PlaylistSelect from './PlaylistSelect.jsx';
 
-class PlaylistEntry extends React.Component {
+class PlayListEntry extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = 
+    {
       playlist: [],
       entry: ''
     };
@@ -14,18 +15,15 @@ class PlaylistEntry extends React.Component {
   }
 
   handleChange(event) {
-    console.log(event.target.value);
     this.setState({
       entry: event.target.value
     });
   }
 
   createPlaylist(event) {
-    this.props.createNewPlaylists(this.state.entry)
-    this.setState({
-      entry: event.target.value
-    });
     event.preventDefault();
+    console.log(this.state.entry)
+    this.props.createNewPlaylists(this.state.entry)
   }
 
   render() {
@@ -58,4 +56,6 @@ class PlaylistEntry extends React.Component {
   }
 }
 
-export default PlaylistEntry;
+
+
+export default PlayListEntry;
