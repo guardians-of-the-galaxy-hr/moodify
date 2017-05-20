@@ -11,12 +11,12 @@ import Search from './Search.jsx';
 import Header from './Header.jsx';
 import Stats from './Stats.jsx';
 import SearchResults from './SearchResults.jsx';
-import PlaylistEntry from './PlaylistEntry.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PublicTweets from './PublicTweets.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
-import TweetResults from './TweetResults.jsx'
+import TweetResults from './TweetResults.jsx';
+import PlaylistEntry from './PlayListEntry.jsx';
 
 class App extends React.Component {
   constructor(props) {
