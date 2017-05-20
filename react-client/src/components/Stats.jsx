@@ -1,17 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-// import { Button } from 'react-bootstrap';
+
 class Stats extends React.Component {
-
-  fetchUserStats() {
-
-  }
 
   render() {
     return (
       <div>
-
-
+        <p>User Name: {this.props.userStatsInfo.username}</p>
+        <p>Total song has listened: {this.props.userStatsInfo.totalSongsListened}</p>
+        <p>List of songs that have been played: {this.props.userStatsInfo.listenedSongsList}</p>
       </div>
     );
   }

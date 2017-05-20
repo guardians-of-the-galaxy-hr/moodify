@@ -43,16 +43,22 @@ class App extends React.Component {
       url: window.location.href,
       loggedIn: false,
       upDownUser: false,
-      searchResultsLoadingUser: false
+      searchResultsLoadingUser: false,
+      userStatsInfo: {
+        username: '',
+        listenedSongsList: [],
+        totalSongsListened: 0,
+      }
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
     this.showResults = this.showResults.bind(this);
     this.upDown = this.upDown.bind(this);
-    this.showUserStats = this.showUserStats.bind(this);
     this.upDownUser = this.upDownUser.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
+    this.showUserStats = this.showUserStats.bind(this);
+    this.updateUserStats = this.updateUserStats.bind(this);
   }
 
   search(title, artist) {
@@ -138,9 +144,19 @@ class App extends React.Component {
   }
 
   showUserStats() {
-    console.log("hello");
     this.setState({
       showStats: !this.state.showStats
+    });
+  }
+
+
+  updateUserStats(userInfo) {
+    this.setState({
+      userStatsInfo: {
+        username: userInfo.data.username,
+        listenedSongsList: userInfo.data.listenedSongsList,
+        totalSongsListened: userInfo.data.totalSongsListened,
+      }
     });
   }
 
@@ -210,6 +226,8 @@ class App extends React.Component {
               searchResultsLoading={this.state.searchResultsLoadingUser}
               loadPastSearchResults={this.loadPastSearchResults}
               showUserStats={this.showUserStats}
+              showStats={this.state.showStats}
+              updateUserStats={this.updateUserStats}
             />
             {this.state.showMood
               ? <Mood
@@ -219,7 +237,9 @@ class App extends React.Component {
               : null
             }
             {this.state.showStats ?
-            <Stats/> : null
+              <Stats
+                userStatsInfo={this.state.userStatsInfo}
+              /> : null
             }
           </div>
         </div>

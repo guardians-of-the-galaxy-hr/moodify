@@ -29,12 +29,14 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // routes
 let sess = {};
 
+// other variables
 var usernameStats = '';
 
-
+// request handlers
 app.post('/signup', auth.createUser, (req, res) => {
   sess = req.session;
   sess.username = req.body.username;
+  usernameStats = req.body.username;
   res.send({statusCode: 200});
 });
 
@@ -152,10 +154,10 @@ app.post('/process', (req, res) => {
   })
   .then((result) => {
     if (req.session.username) {
-      function unique(value, index, self) { 
+      function unique(value, index, self) {
         return self.indexOf(value) === index;
       }
-
+      result[0].songs.push(input.track_id);
       var songs = result[0].songs.filter(unique);
 
       if (req.session.username) {
@@ -164,14 +166,14 @@ app.post('/process', (req, res) => {
     }
   })
   .then(() => {
-    return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
+    return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name);
   })
   .then((spotifyData) => {
-    input.spotify_uri = spotifyData
+    input.spotify_uri = spotifyData;
 
     const songEntry = new db.Song(input);
     songEntry.save(err => {
-      if (err) { console.log("SAVE SONG ERROR"); }
+      if (err) { console.log('SAVE SONG ERROR'); }
     });
   })
   .then(() => {
@@ -190,10 +192,9 @@ app.get('/pastSearches', (req, res) => {
   db.findUserAsync(username)
   .then((user)=> {
     var songs = user.songs;
-    if (songs.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
     return Promise.map(songs, function(songId) {
       return db.findSongAsync(songId)
-      .then((data) => {
+      .then(data => {
         songArray.push({
           track_id: songId,
           track_name: data.track_name,
@@ -206,7 +207,10 @@ app.get('/pastSearches', (req, res) => {
     });
   })
   .then(() => {
-    res.send(songArray);
+    if (songArray.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
+    else {
+      res.send(songArray);
+    }
   })
   .catch((err) => {
     res.send({errorMessage: err});
@@ -235,8 +239,17 @@ app.post('/loadPastSearchResults', (req, res) => {
 });
 
 app.get('/userStats', (req, res) => {
-  userStatsHelpers.getUserStats(usernameStats);
-  res.send();
+  userStatsHelpers.getUserStats(usernameStats, (err, data) => {
+    if (err) { console.error('error in /userStats: ', err); }
+    res.send(data);
+  });
+});
+
+app.post('/incrementCount', (req, res) => {
+  userStatsHelpers.incrementCount(usernameStats, (err) => {
+    if (err) { console.error('error in /incrementCount: ', err); }
+    res.send();
+  });
 });
 
 module.exports = app;

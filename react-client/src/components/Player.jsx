@@ -12,9 +12,10 @@ class Player extends React.Component {
     return (
       <div>
         {renderIf(this.props.spotifyURI)(
-          <div className="player" >
-            <iframe src={'https://open.spotify.com/embed?uri=' + this.props.spotifyURI}
-                    frameBorder="0" width="100%" height="auto"/>
+          <div className="player">
+            <iframe src={'https://open.spotify.com/embed?uri=' + this.props.spotifyURI }
+                    frameBorder="0" width="100%" height="auto"
+                    />
           </div>
         )}
       </div>
@@ -23,3 +24,4 @@ class Player extends React.Component {
 }
 
 export default Player;
+//onClick={this.props.increamentSongsListened}

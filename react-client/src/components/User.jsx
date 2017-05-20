@@ -12,11 +12,13 @@ class User extends React.Component {
       redirect: false,
       loggedIn: false,
       pastSearchResults: [],
-      loading: false
+      loading: false,
+      showStats: this.props.showStats
     };
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
     this.pastSearch = this.pastSearch.bind(this);
+    this.fetchUserStats = this.fetchUserStats.bind(this);
   }
 
   redirect() {
@@ -26,6 +28,7 @@ class User extends React.Component {
   logout() {
     axios.get('/logout').then(res => {
       this.setState({loggedIn: false, pastSearchResults: []});
+      this.props.showStats ? this.props.showUserStats() : null;
     });
   }
 
@@ -46,6 +49,19 @@ class User extends React.Component {
     });
   }
 
+  fetchUserStats() {
+    this.props.showUserStats();
+    axios.get('/userStats')
+    .then(response => {
+      console.log('user stats get request sent successfully');
+      console.log('response from User for stats: ', response);
+      this.props.updateUserStats(response);
+    })
+    .catch(error => {
+      console.error('user stats get request failed to send: ', error);
+    });
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect push to="/loginSignup"/>;
@@ -59,7 +75,7 @@ class User extends React.Component {
             </div>
           )}
           {renderif(this.state.loggedIn)(
-            <div className="loginButton" onClick={this.props.showUserStats}>
+            <div className="loginButton" onClick={this.fetchUserStats}>
               User Stats
             </div>
           )}
