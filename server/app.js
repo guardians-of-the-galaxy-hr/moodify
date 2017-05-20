@@ -13,6 +13,7 @@ const mmHelpers = require('./musixMatchHelpers.js');
 const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const googleTranslateHelpers = require('./googleTranslateHelpers.js');
+const userStatsHelpers = require('./userStatsHelpers');
 const db = require('../database');
 
 // initialize and set up app
@@ -28,6 +29,9 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // routes
 let sess = {};
 
+var usernameStats = '';
+
+
 app.post('/signup', auth.createUser, (req, res) => {
   sess = req.session;
   sess.username = req.body.username;
@@ -37,6 +41,7 @@ app.post('/signup', auth.createUser, (req, res) => {
 app.post('/login', auth.verifyUser, (req, res) => {
   sess = req.session;
   sess.username = req.body.username;
+  usernameStats = req.body.username;
   res.send({statusCode: 200});
 });
 
@@ -46,12 +51,12 @@ app.get('/check', (req, res) => {
   } else {
     res.send({statusCode: 404});
   }
-})
+});
 
 app.get('/logout', (req, res) => {
-  req.session.destroy()
-  res.send('logged out!')
-})
+  req.session.destroy();
+  res.send('logged out!');
+});
 
 app.post('/search', (req, res) => {
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
@@ -99,7 +104,7 @@ app.post('/process', (req, res) => {
     return input.lyrics;
   })
   .then((lyrics) => {
-    lyricsEnglish = lyrics;    
+    lyricsEnglish = lyrics;
     if (lyricsLang !== 'en') {
       return googleTranslateHelpers.translateToEnglish(songNameAndArtist[0]);
     }
@@ -138,7 +143,7 @@ app.post('/process', (req, res) => {
     const newEntry = new db.Watson(watsonData);
     newEntry.save(err => {
       if (err) { console.log('SAVE WATSON ERROR'); }
-    })
+    });
   })
   .then(() => {
     if (req.session.username) {
@@ -165,7 +170,7 @@ app.post('/process', (req, res) => {
     const songEntry = new db.Song(input);
     songEntry.save(err => {
       if (err) { console.log("SAVE SONG ERROR"); }
-    })
+    });
   })
   .then(() => {
     res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri, lyricsLang, lyricsEnglish, artistEnglish, titleEnglish]);
@@ -174,7 +179,7 @@ app.post('/process', (req, res) => {
     console.log('/PROCESS ERROR: ', error);
     res.send(error);
   });
-})
+});
 
 app.get('/pastSearches', (req, res) => {
   const username = req.session.username;
@@ -195,7 +200,7 @@ app.get('/pastSearches', (req, res) => {
       })
       .catch((err) => {
         console.log (err);
-      })
+      });
     });
   })
   .then(() => {
@@ -212,7 +217,7 @@ app.post('/loadPastSearchResults', (req, res) => {
     .find({ track_id: req.body.track_id })
     .exec((err, data) => {
       resolve(data[0]);
-    })
+    });
   })
   .then((songData) => {
     let output = [];
@@ -222,9 +227,14 @@ app.post('/loadPastSearchResults', (req, res) => {
     .exec((err, watsonData) => {
       output.push(watsonData[0]);
       res.send(output);
-    })
+    });
   })
-  .catch(err => { res.send(err); })
+  .catch(err => { res.send(err); });
+});
+
+app.get('/userStats', (req, res) => {
+  userStatsHelpers.getUserStats(usernameStats);
+  res.send();
 });
 
 module.exports = app;

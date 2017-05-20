@@ -9,9 +9,9 @@ const translateToEnglish = (text, callback) => {
 
   googleTranslate.translate(text, 'en', function(err, translation) {
     translation = translation.translatedText.replace(/\| |\|/g, '\n');
-    if (err) {callback (err)}
-    else {callback(err, translation)}
+    if (err) { callback (err); }
+    else { callback(err, translation); }
   });
-}
+};
 
 module.exports.translateToEnglish = Promise.promisify(translateToEnglish);
