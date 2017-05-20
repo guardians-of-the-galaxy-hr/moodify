@@ -50,9 +50,7 @@ class App extends React.Component {
         listenedSongsList: [],
         totalSongsListened: 0,
       }
-      playlists: null,
-      currentPlaylist: null,
-      playlistList: [],
+      playlists: {},
       currentPlaylist: null
     };
     this.search = this.search.bind(this);
@@ -115,6 +113,7 @@ class App extends React.Component {
 
     axios.post('/process', input).then(res => {
       let data = res.data;
+      console.log('data at 0', data);
       this.setState({
         currentSongNameAndArtist: data[0],
         currentLyrics: data[1],
@@ -158,34 +157,19 @@ class App extends React.Component {
     });
   }
 
+
   showUserStats() {
     this.setState({
       showStats: !this.state.showStats
+  });
+
+  createNewPlaylists(playlistName) {
+    if (this.state.playlists.hasOwnProperty(playlistName)) return;
+    let playlists = this.state.playlists;
+    playlists[playlistName] = [];
+    this.setState({
+      playlists: playlists
     });
-
-  createNewPlaylists(playlist) {
-    let newPlaylistList = this.state.playlistList;
-    console.log('new playlist', newPlaylistList);
-
-    if (!this.state.playlists) {
-      newPlaylistList.push(playlist);
-      let newPlaylists = {};
-      newPlaylists[playlist] = [];
-      this.setState({
-        playlists: newPlaylists,
-        playlistList: newPlaylistList
-      })
-    } else if (this.state.playlist.hasOwnProperty(playlist)) {
-
-    } else {
-      let newPlayLists = this.state.playlists;
-      newPlaylists[playlist] = [];
-      newPlaylistList.push(playlist);
-      this.setState({
-      playlists: newPlaylists,
-      playListList: newPlaylistList
-      })
-    }
   }
 
   addToPlaylist(artistInfo) {
@@ -196,12 +180,12 @@ class App extends React.Component {
       this.setState({
         playlists: updatedPlaylists
       })
-      console.log(updatedPlaylists)
-    } 
+    } else {
+      alert('Please create a playlist first!');
+    }
   }
 
   setCurrentPlaylist(playlist) {
-    console.log('The Current Playlist is----', playlist);
     this.setState({
       currentPlaylist: playlist
     })
@@ -302,7 +286,18 @@ class App extends React.Component {
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
-            <PlaylistEntry playlistList={this.state.playlistList} addToPlaylist={this.state.addToPlaylist} createNewPlaylists={this.createNewPlaylists} setCurrentPlaylist={this.setCurrentPlaylist} currentPlaylist={this.state.currentPlaylist} playlists={this.state.playlists} />
+
+            <PlaylistEntry 
+              playlistList={this.state.playlistList} 
+              addToPlaylist={this.state.addToPlaylist} 
+              createNewPlaylists={this.createNewPlaylists} 
+              setCurrentPlaylist={this.setCurrentPlaylist} 
+              currentPlaylist={this.state.currentPlaylist} 
+              playlists={this.state.playlists} 
+              currentPlaylist={this.state.currentPlaylist}
+              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
+              search={this.search}
+            />
           </div>
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
