@@ -310,6 +310,18 @@ class App extends React.Component {
           </div>
 
           <div className="col2">
+            <div>
+            <PlaylistEntry 
+              playlistList={this.state.playlistList} 
+              addToPlaylist={this.state.addToPlaylist} 
+              createNewPlaylists={this.createNewPlaylists} 
+              setCurrentPlaylist={this.setCurrentPlaylist} 
+              currentPlaylist={this.state.currentPlaylist} 
+              playlists={this.state.playlists} 
+              currentPlaylist={this.state.currentPlaylist}
+              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
+              process={this.process}
+            />
             <User
               showPrev={this.state.showResultsUser}
               prev={this.showResultsUser}
@@ -332,18 +344,6 @@ class App extends React.Component {
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
-            <PlaylistEntry 
-              className="playlistEntry"
-              playlistList={this.state.playlistList} 
-              addToPlaylist={this.state.addToPlaylist} 
-              createNewPlaylists={this.createNewPlaylists} 
-              setCurrentPlaylist={this.setCurrentPlaylist} 
-              currentPlaylist={this.state.currentPlaylist} 
-              playlists={this.state.playlists} 
-              currentPlaylist={this.state.currentPlaylist}
-              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
-              process={this.process}
-            />
           </div>
         </div>
       </div>

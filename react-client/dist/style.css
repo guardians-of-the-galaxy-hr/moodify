@@ -33,6 +33,16 @@ html {
   flex-direction: column;
 }
 
+<<<<<<< HEAD
+=======
+.col3 {
+  display: flex;
+  flex: 1 1 auto;
+  order: 1;
+  flex-direction: column;
+}
+
+>>>>>>> Playlist
 .minicol1 {
   float: left;
   flex: 1 1 100%;
@@ -500,7 +510,6 @@ h6 {
   text-align: center;
 }
 
-<<<<<<< HEAD
 .TweetsLoading {
   padding-top: 40%;
 }
@@ -519,7 +528,7 @@ h6 {
   display: block;
   float: left;
 }
-=======
+
 .playlist-entry {
   float: right;
   position: relative;
