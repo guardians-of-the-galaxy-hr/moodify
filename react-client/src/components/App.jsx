@@ -51,11 +51,16 @@ class App extends React.Component {
       userStatsInfo: {
         username: '',
         listenedSongsList: [],
+<<<<<<< HEAD
         totalSongsListened: 0,
       },
       showTweets: false,
       tweets: [],
       AllTweets: [],    
+=======
+        totalSongsListened: 0
+      },
+>>>>>>> Playlist
       playlists: {},
       currentPlaylist: null
     };
@@ -322,6 +327,7 @@ class App extends React.Component {
               currentSongNameAndArtist={this.state.currentSongNameAndArtist}
               process={this.process}
             />
+<<<<<<< HEAD
             <User
               showPrev={this.state.showResultsUser}
               prev={this.showResultsUser}
@@ -339,11 +345,25 @@ class App extends React.Component {
                 />
               : null
             }
+=======
+
+>>>>>>> Playlist
             {this.state.showStats ?
               <Stats
                 userStatsInfo={this.state.userStatsInfo}
               /> : null
             }
+<<<<<<< HEAD
+=======
+
+              {this.state.showStats ?
+              <Stats/> : null
+              }
+            </div>
+              <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
+                ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+                : null}
+>>>>>>> Playlist
           </div>
         </div>
       </div>

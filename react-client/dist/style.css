@@ -33,16 +33,6 @@ html {
   flex-direction: column;
 }
 
-<<<<<<< HEAD
-=======
-.col3 {
-  display: flex;
-  flex: 1 1 auto;
-  order: 1;
-  flex-direction: column;
-}
-
->>>>>>> Playlist
 .minicol1 {
   float: left;
   flex: 1 1 100%;
