@@ -263,6 +263,18 @@ class App extends React.Component {
             }
           </div>
           <div className="col2">
+            <div>
+            <PlaylistEntry 
+              playlistList={this.state.playlistList} 
+              addToPlaylist={this.state.addToPlaylist} 
+              createNewPlaylists={this.createNewPlaylists} 
+              setCurrentPlaylist={this.setCurrentPlaylist} 
+              currentPlaylist={this.state.currentPlaylist} 
+              playlists={this.state.playlists} 
+              currentPlaylist={this.state.currentPlaylist}
+              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
+              process={this.process}
+            />
             <User
               showPrev={this.state.showResultsUser}
               prev={this.showResultsUser}
@@ -275,13 +287,6 @@ class App extends React.Component {
               showStats={this.state.showStats}
               updateUserStats={this.updateUserStats}
             />
-            {this.state.showMood
-              ? <Mood
-                  watson={this.state.watson}
-                  songNameAndArtist={this.state.currentSongNameAndArtist}
-                />
-              : null
-            }
 
             {this.state.showStats ?
               <Stats
@@ -289,17 +294,6 @@ class App extends React.Component {
               /> : null
             }
 
-            <PlaylistEntry 
-              playlistList={this.state.playlistList} 
-              addToPlaylist={this.state.addToPlaylist} 
-              createNewPlaylists={this.createNewPlaylists} 
-              setCurrentPlaylist={this.setCurrentPlaylist} 
-              currentPlaylist={this.state.currentPlaylist} 
-              playlists={this.state.playlists} 
-              currentPlaylist={this.state.currentPlaylist}
-              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
-              process={this.process}
-            />
           </div>
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
