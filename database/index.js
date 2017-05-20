@@ -62,7 +62,7 @@ let userSchema = mongoose.Schema({
   username: {type: String, unique: true},
   password: String,
   songs: [Number],
-  listenedSongsList: {type: [Number], unique: true},
+  listenedSongsList: [Number],
   totalSongsListened: Number
 });
 userSchema.plugin(beautifyUnique);

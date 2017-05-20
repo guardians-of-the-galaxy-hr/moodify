@@ -58,6 +58,7 @@ const createUser = (req, res, next) => {
         listenedSongsList: []
       });
       newUser.save(() => {
+        console.log('user created successful');
         next();
       });
     } else {

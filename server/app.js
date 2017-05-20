@@ -157,7 +157,7 @@ app.post('/process', (req, res) => {
       function unique(value, index, self) {
         return self.indexOf(value) === index;
       }
-
+      result[0].songs.push(input.track_id);
       var songs = result[0].songs.filter(unique);
 
       if (req.session.username) {
@@ -192,7 +192,6 @@ app.get('/pastSearches', (req, res) => {
   db.findUserAsync(username)
   .then((user)=> {
     var songs = user.songs;
-    if (songs.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
     return Promise.map(songs, function(songId) {
       return db.findSongAsync(songId)
       .then(data => {
@@ -208,7 +207,10 @@ app.get('/pastSearches', (req, res) => {
     });
   })
   .then(() => {
-    res.send(songArray);
+    if (songArray.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
+    else {
+      res.send(songArray);
+    }
   })
   .catch((err) => {
     res.send({errorMessage: err});
