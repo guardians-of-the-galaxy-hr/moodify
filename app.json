@@ -13,7 +13,11 @@
     "WATSON_NLU_USERNAME": {"required": true},
     "WATSON_TONE_PASSWORD": {"required": true},
     "WATSON_TONE_USERNAME": {"required": true},
-    "GOOGLE_API_KEY": {"required": true}
+    "GOOGLE_API_KEY": {"required": true},
+    "TWITTER_API_CONSUMER_KEY": {"required": true},
+    "TWITTER_API_CONSUMER_SECRET": {"required": true},
+    "TWITTER_API_ACCESS_TOKEN": {"required": true},
+    "TWITTER_API_ACCESS_TOKEN_SECRET": {"required": true}
   },
   "formation": {
   },
