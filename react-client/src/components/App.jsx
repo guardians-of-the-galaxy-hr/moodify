@@ -15,6 +15,7 @@ import PlaylistEntry from './PlaylistEntry.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
+import PlaylistEntry from './PlaylistEntry.jsx';
 
 class App extends React.Component {
   constructor(props) {
