@@ -202,7 +202,8 @@ class App extends React.Component {
         listenedSongsList: userInfo.data.listenedSongsList,
         totalSongsListened: userInfo.data.totalSongsListened,
       }
-  });
+    });
+  }
 
   createNewPlaylists(playlistName) {
     if (this.state.playlists.hasOwnProperty(playlistName)) { return };
@@ -302,13 +303,6 @@ class App extends React.Component {
           </div>
 
           <div className="col2">
-
-            {this.state.showStats ?
-              <Stats
-                userStatsInfo={this.state.userStatsInfo}
-              /> : null
-            }
-
             <PlaylistEntry 
               playlistList={this.state.playlistList} 
               addToPlaylist={this.state.addToPlaylist} 
@@ -320,10 +314,23 @@ class App extends React.Component {
               currentSongNameAndArtist={this.state.currentSongNameAndArtist}
               process={this.process}
             />
+            <User
+              showPrev={this.state.showResultsUser}
+              prev={this.showResultsUser}
+              upDown={this.state.upDownUser}
+              runUpDown={this.upDownUser}
+              process={this.process}
+              searchResultsLoading={this.state.searchResultsLoadingUser}
+              loadPastSearchResults={this.loadPastSearchResults}
+              showUserStats={this.showUserStats}
+            />
+
+            {this.state.showStats ?
+              <Stats
+                userStatsInfo={this.state.userStatsInfo}
+              /> : null
+            }
           </div>
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
-              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null}
         </div>
       </div>
     );

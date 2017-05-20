@@ -36,7 +36,7 @@ html {
 .col3 {
   display: flex;
   flex: 1 1 auto;
-  order: 3;
+  order: 1;
   flex-direction: column;
 }
 
