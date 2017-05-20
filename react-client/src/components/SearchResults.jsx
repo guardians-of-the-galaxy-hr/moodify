@@ -43,7 +43,7 @@ class SearchResults extends React.Component {
             return (
               <div>
               <div className='searchText' key={i} value={i} onClick={this.handleClick} > {i + 1}. {trackObj.track.track_name} - {trackObj.track.artist_name }</div>
-              <button value={artistDetails} onClick={() => this.addToPlayList(artistDetails)} key={i + 1} >Add to playlist</button>
+              <button value={artistDetails} onClick={() => this.addToPlayList(artistDetails)} key={Math.random() * i + 3462 * Math.random()} >Add to playlist</button>
               </div>
             )})
           }

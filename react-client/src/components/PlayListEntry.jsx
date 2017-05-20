@@ -33,7 +33,7 @@ class PlaylistEntry extends React.Component {
           <input type="text" placeholder="create playlist" className="textbox" value={this.state.value} onChange={this.handleChange} />
           <input type="submit" className="submitbutton" value="Submit"/>
         </form>
-        <PlaylistSelect playlists={this.props.playlists} setCurrentPlaylist={this.props.setCurrentPlaylist} playlistList={this.props.playlistList} />
+        <PlaylistSelect search={this.props.search} currentSongNameAndArtist={this.props.currentSongNameAndArtist} playlists={this.props.playlists} setCurrentPlaylist={this.props.setCurrentPlaylist} currentPlaylist={this.props.currentPlaylist} />
       </div>
     );
   }

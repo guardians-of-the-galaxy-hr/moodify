@@ -6,6 +6,7 @@ class Playlist extends React.Component {
     this.state = {
       playlists: []
     }
+    console.log(props.currentSongNameAndArtist);
   }
 
   updatePlaylist() {
@@ -24,11 +25,21 @@ class Playlist extends React.Component {
     }
   }
 
+  search(artistDetails) {
+    // console.log('artist and song details', value);
+    this.props.search(artistDetails[1], artistDetails[0]);;
+    // this.setState(
+    //   { title: '', artist: '', showPrev: true
+    // }); 
+  }
+
   render() {
-    this.updatePlaylist();
     return (
       <div>
-        <h2>{this.props.playlist}</h2>
+        <h2>Current Playlist: {this.props.currentPlaylist}</h2>
+        {this.props.playlists[this.props.currentPlaylist].map((value, index) => {
+          return <li className="searchText" key={index} value={value} onClick={() => this.search(value)}>Artist: {value[0]} Title: {value[1]}</li>
+        })}
       </div>
     )
   }
