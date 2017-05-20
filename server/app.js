@@ -204,7 +204,6 @@ app.get('/searchTweets', (req, res) => {
 app.get('/pastSearches', (req, res) => {
   const username = req.session.username;
   var songArray = [];
-
   db.findUserAsync(username)
   .then((user)=> {
     var songs = user.songs;
@@ -223,8 +222,10 @@ app.get('/pastSearches', (req, res) => {
     });
   })
   .then(() => {
-    if (songArray.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
-    else {
+    //res.send(songArray);
+    if (songArray.length === 0) { 
+      res.send({errorMessage: 'No Past Searches'}); 
+    } else {
       res.send(songArray);
     }
   })
