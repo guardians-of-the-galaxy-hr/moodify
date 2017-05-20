@@ -48,8 +48,8 @@ class App extends React.Component {
       userStatsInfo: {
         username: '',
         listenedSongsList: [],
-        totalSongsListened: 0,
-      }
+        totalSongsListened: 0
+      },
       playlists: {},
       currentPlaylist: null
     };
@@ -275,18 +275,6 @@ class App extends React.Component {
               currentSongNameAndArtist={this.state.currentSongNameAndArtist}
               process={this.process}
             />
-            <User
-              showPrev={this.state.showResultsUser}
-              prev={this.showResultsUser}
-              upDown={this.state.upDownUser}
-              runUpDown={this.upDownUser}
-              process={this.process}
-              searchResultsLoading={this.state.searchResultsLoadingUser}
-              loadPastSearchResults={this.loadPastSearchResults}
-              showUserStats={this.showUserStats}
-              showStats={this.state.showStats}
-              updateUserStats={this.updateUserStats}
-            />
 
             {this.state.showStats ?
               <Stats
@@ -294,10 +282,14 @@ class App extends React.Component {
               /> : null
             }
 
+              {this.state.showStats ?
+              <Stats/> : null
+              }
+            </div>
+              <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
+                ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+                : null}
           </div>
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
-              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null}
         </div>
       </div>
     );
