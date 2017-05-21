@@ -28,6 +28,7 @@ class User extends React.Component {
   logout() {
     axios.get('/logout').then(res => {
       this.setState({loggedIn: false, pastSearchResults: []});
+      this.props.hideUsernameOnLogout();
       this.props.showStats ? this.props.showUserStats() : null;
     });
   }
@@ -54,7 +55,6 @@ class User extends React.Component {
     axios.get('/userStats')
     .then(response => {
       console.log('user stats get request sent successfully');
-      console.log('response from User for stats: ', response);
       this.props.updateUserStats(response);
     })
     .catch(error => {

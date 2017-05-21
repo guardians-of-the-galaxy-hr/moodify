@@ -530,10 +530,11 @@ h6 {
   float: right;
   margin-top: 40px;
   margin-right: 40px;
-  min-width: 80px;
-  height: 30px;
-  line-height: 30px;
+  min-width: 100px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
+  font-size: 20px;
 }
 
 #user {

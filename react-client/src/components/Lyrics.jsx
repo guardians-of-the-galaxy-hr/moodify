@@ -21,13 +21,12 @@ class Lyrics extends React.Component {
   }
 
   increamentSongsListened () {
-    console.log("321");
     axios.post('/incrementCount')
     .then(response => {
-
+      console.log('incremented listened songs count');
     })
     .catch(error => {
-
+      console.error('failed to increment listened songs count ', error);
     });
   }
 
