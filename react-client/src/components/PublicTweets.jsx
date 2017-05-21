@@ -18,7 +18,7 @@ class PublicTweets extends React.Component {
       if (!res.data) {
         console.log('error');
       }
-      console.log(res.data.statuses);
+      console.log(res.data);
       this.setState({allTweets: res.data.statuses});
     });       
   } 

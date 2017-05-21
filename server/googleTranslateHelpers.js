@@ -5,7 +5,7 @@ module.exports.googleTranslate = googleTranslate;
 
 const translateToEnglish = (text, callback) => {
   text = text.replace(/\n/g, '|');
-  console.log (text);
+  //console.log (text);
 
   googleTranslate.translate(text, 'en', function(err, translation) {
     translation = translation.translatedText.replace(/\| |\|/g, '\n');

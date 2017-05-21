@@ -85,7 +85,7 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 app.post('/process', (req, res) => {
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
-  console.log("Song name and artist", songNameAndArtist)
+  console.log('Song name and artist', songNameAndArtist);
   let watsonData = {};
   let lyricsLang;
   let lyricsEnglish;
@@ -104,7 +104,6 @@ app.post('/process', (req, res) => {
   })
   .then ((detection) => {
     lyricsLang = detection.language;
-    console.log ('language', lyricsLang);
     if (lyricsLang !== 'en') {
       return googleTranslateHelpers.translateToEnglish(detection.originalText);
     }
@@ -191,17 +190,48 @@ app.post('/process', (req, res) => {
   });
 });
 app.get('/searchTweets', (req, res) => {
-
-  twitterHelpers.queryTwitterHelper(req.query.ArtistHashTag, (response) => {
+  twitterHelpers.queryTwitterHelper(req.query.ArtistHashTag)
+  .then((response) => {
     selectedSong = response;
     res.send(response);
+  })
+  .catch((err) => {
+    res.send(err);
   });
+<<<<<<< HEAD
 
   app.get('/allTweets', (req, res) => {
     res.send(selectedSong);
   });
+=======
+});  
+>>>>>>> Setup Twitter Sentiments
 
+app.get('/allTweets', (req, res) => {
+  var tweetArray = selectedSong;
+  Promise.map(selectedSong.statuses, function(input, index) {  
+    // return googleTranslateHelpers.translateToEnglish(input.text)
+    // .then((translatedText) => {
+    //   tweetArray.statuses[index].text = translatedText;     
+    // })
+    // .then((translatedText) => {
+    return watsonHelpers.queryWatsonNLUHelper(input.text)
+    then((watsonAnalyses) =>{
+      console.log('From Watsonnnnnnn', watsonAnalyses);
+    });
+  })
+    .catch((error) => {
+      console.log(error);
+    })
+  .then((result) => {
+    res.send(tweetArray);
+  })
+  .catch((error) => {
+    res.send(error);
+  });
+  
 });
+
 
 app.get('/pastSearches', (req, res) => {
   const username = req.session.username;
