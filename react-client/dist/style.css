@@ -527,7 +527,16 @@ h6 {
 }
 
 .displayUsername {
-  text-align: right;
-  position: absolute;
+  float: right;
+  margin-top: 40px;
+  margin-right: 40px;
+  min-width: 80px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
 }
 
+#user {
+  padding-right: 5px;
+  padding-top: 10px;
+}

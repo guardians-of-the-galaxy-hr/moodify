@@ -43,6 +43,7 @@ class App extends React.Component {
       showStats: false,
       showPrev: false,
       showTweets: false,
+      showLoginName: false,
       upDown: true,
       url: window.location.href,
       loggedIn: false,
@@ -53,13 +54,17 @@ class App extends React.Component {
         listenedSongsList: [],
         totalSongsListened: 0,
       },
-      showTweets: false,
       tweets: [],
-      AllTweets: [],    
+<<<<<<< HEAD
+      AllTweets: [],
       totalSongsListened: 0,
       playlists: {},
       currentPlaylist: null
+=======
+      AllTweets: [],
+>>>>>>> display user name on main page
     };
+
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
     this.searchTweets = this.searchTweets.bind(this);
@@ -73,13 +78,33 @@ class App extends React.Component {
     this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
     this.createNewPlaylists = this.createNewPlaylists.bind(this);
     this.addToPlaylist = this.addToPlaylist.bind(this);
+    this.getUserName = this.getUserName.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('start up');
+    this.getUserName();
+  }
+
+  getUserName () {
+    axios.get('/getUsername')
+    .then(response => {
+      console.log("before: ", this.state.showLoginName);
+      console.log(this.state.showLoginName);
+      response.data === '' ? null : this.setState({ showLoginName: true, userStatsInfo: {username: response.data}});
+      console.log("after: ", this.state.userStatsInfo.username);
+      console.log(this.state.showLoginName);
+    })
+    .catch(error => {
+      console.error('failed to get user name: ', error );
+    });
   }
 
   search(title, artist) {
     this.setState({
-      showResults: true, 
-      searchResultsLoading: true, 
-      showPrev: true, 
+      showResults: true,
+      searchResultsLoading: true,
+      showPrev: true,
       upDown: false
     });
 
@@ -92,7 +117,7 @@ class App extends React.Component {
         console.log('error');
       }
       this.setState({
-        searchResults: res.data, 
+        searchResults: res.data,
         searchResultsLoading: false
       });
     });
@@ -137,10 +162,10 @@ class App extends React.Component {
         lyricsLoading: false,
         showLyrics: true,
         showMood: true
-      });     
+      });
     }).catch(error => {
       throw error;
-    });  
+    });
   }
 
   searchTweets(trackAlbumArtist) {
@@ -160,7 +185,7 @@ class App extends React.Component {
         });
         this.state.AllTweets = res.data;
       }
-      //console.log(res.data.statuses);     
+      //console.log(res.data.statuses);
     });
 
   }
@@ -196,7 +221,7 @@ class App extends React.Component {
     this.setState({
       showStats: !this.state.showStats
     });
-  } 
+  }
 
   createNewPlaylists(playlistName) {
     if (this.state.playlists.hasOwnProperty(playlistName)) { return };
@@ -228,6 +253,7 @@ class App extends React.Component {
   }
 
   updateUserStats(userInfo) {
+    console.log("hi");
     this.setState({
       userStatsInfo: {
         username: userInfo.data.username,
@@ -287,7 +313,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header url={this.state.url} username={this.state.userStatsInfo.username}/>
+        <Header url={this.state.url}
+          username={this.state.userStatsInfo.username}
+          showLoginName={this.state.showLoginName}
+        />
         <div className="container">
           <div className="col1">
             <Search
@@ -322,26 +351,26 @@ class App extends React.Component {
                   titleEnglish={this.state.titleEnglish}
                 />
               : null
-            }    
+            }
             {this.state.showTweets
-              ? <TweetResults 
-                  loading={this.state.spotifyLoading} 
-                  tweets={this.state.tweets} 
+              ? <TweetResults
+                  loading={this.state.spotifyLoading}
+                  tweets={this.state.tweets}
                   allTweets={this.state.AllTweets}
-                /> 
+                />
               : null
             }
           </div>
 
           <div className="col2">
-            <PlaylistEntry 
+            <PlaylistEntry
               className="playlistEntry"
-              playlistList={this.state.playlistList} 
-              addToPlaylist={this.state.addToPlaylist} 
-              createNewPlaylists={this.createNewPlaylists} 
-              setCurrentPlaylist={this.setCurrentPlaylist} 
-              currentPlaylist={this.state.currentPlaylist} 
-              playlists={this.state.playlists} 
+              playlistList={this.state.playlistList}
+              addToPlaylist={this.state.addToPlaylist}
+              createNewPlaylists={this.createNewPlaylists}
+              setCurrentPlaylist={this.setCurrentPlaylist}
+              currentPlaylist={this.state.currentPlaylist}
+              playlists={this.state.playlists}
               currentPlaylist={this.state.currentPlaylist}
               currentSongNameAndArtist={this.state.currentSongNameAndArtist}
               process={this.process}
@@ -361,8 +390,8 @@ class App extends React.Component {
               <Stats/> : null
               }
                 {this.state.showMood
-                ? <Mood 
-                  watson={this.state.watson} 
+                ? <Mood
+                  watson={this.state.watson}
                   songNameAndArtist={this.state.currentSongNameAndArtist}/>
                 : null}
           </div>

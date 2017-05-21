@@ -41,6 +41,7 @@
     "path-to-regexp": "^1.7.0",
     "query-parse": "^1.0.0",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
     "react-chartjs-2": "^2.0.5",
     "react-dom": "^15.5.4",
     "react-history": "^0.18.2",

@@ -1,5 +1,7 @@
 import React from 'react';
+import renderif from 'render-if';
 import {Redirect, Link} from 'react-router-dom';
+
 
 class Header extends React.Component {
   constructor(props) {
@@ -25,13 +27,15 @@ class Header extends React.Component {
       <div id="header" onClick={this.redirect}>
         <h3 id="logo">moooodify</h3>
         <img id="mascot" src="./img/cow.png" width="75" height="75"/>
-        <div class="displayUsername">
-          <p>Logged in as: {this.props.username}</p>
-        </div>
-
+        {renderif(this.props.showLoginName)(
+        <div className="displayUsername">
+            <img id="user" src="./img/user.png" width="30" height="30"/>
+            {this.props.username}
+        </div>)}
       </div>
     );
   }
 }
 
 export default Header;
+          //

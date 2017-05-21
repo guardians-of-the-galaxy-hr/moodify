@@ -196,7 +196,7 @@ app.get('/searchTweets', (req, res) => {
     selectedSong = response;
     res.send(response);
   });
-  
+
   app.get('/allTweets', (req, res) => {
     res.send(selectedSong);
   });
@@ -225,8 +225,8 @@ app.get('/pastSearches', (req, res) => {
   })
   .then(() => {
     //res.send(songArray);
-    if (songArray.length === 0) { 
-      res.send({errorMessage: 'No Past Searches'}); 
+    if (songArray.length === 0) {
+      res.send({errorMessage: 'No Past Searches'});
     } else {
       res.send(songArray);
     }
@@ -269,6 +269,10 @@ app.post('/incrementCount', (req, res) => {
     if (err) { console.error('error in /incrementCount: ', err); }
     res.send();
   });
+});
+
+app.get('/getUsername', (req, res) => {
+  res.send(usernameStats);
 });
 
 module.exports = app;
