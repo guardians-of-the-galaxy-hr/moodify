@@ -25,6 +25,10 @@ class Header extends React.Component {
       <div id="header" onClick={this.redirect}>
         <h3 id="logo">moooodify</h3>
         <img id="mascot" src="./img/cow.png" width="75" height="75"/>
+        <div class="displayUsername">
+          <p>Logged in as: {this.props.username}</p>
+        </div>
+
       </div>
     );
   }
