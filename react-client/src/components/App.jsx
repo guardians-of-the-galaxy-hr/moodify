@@ -17,6 +17,7 @@ import PublicTweets from './PublicTweets.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
 import TweetResults from './TweetResults.jsx';
 import PlaylistEntry from './PlayListEntry.jsx';
+import SideMenu from './SideMenu.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,6 +58,7 @@ class App extends React.Component {
         listenedSongsList: [],
         totalSongsListened: 0,
       },
+      visible: false,
       watson: {}
     };
 
@@ -68,6 +70,7 @@ class App extends React.Component {
     this.process = this.process.bind(this);
     this.search = this.search.bind(this);
     this.searchTweets = this.searchTweets.bind(this);
+    this.showLeft = this.showLeft.bind(this);
     this.showResults = this.showResults.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
     this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
@@ -258,6 +261,11 @@ class App extends React.Component {
     });
   }
 
+  showLeft () {
+    console.log('current lyric: ', this.state.songNameAndArtist);
+    this.refs.left.show();
+  }
+
   createNewPlaylists(playlistName) {
     if (this.state.playlists.hasOwnProperty(playlistName)) { return };
     let playlists = this.state.playlists;
@@ -313,6 +321,13 @@ class App extends React.Component {
           showLoginName={this.state.showLoginName}
         />
         <div className="container">
+            <SideMenu
+                showStats={this.state.showStats}
+                userStatsInfo={this.state.userStatsInfo}
+                visible={this.state.visible}
+                ref="left"
+                alignment="left"
+              />
           <div className="col1">
             <Search
               search={this.search}
@@ -382,10 +397,8 @@ class App extends React.Component {
               process={this.process}
               updateUserStats={this.updateUserStats}
               hideUsernameOnLogout={this.hideUsernameOnLogout}
+              showLeft={this.showLeft}
             />
-              {this.state.showStats ?
-              <Stats userStatsInfo={this.state.userStatsInfo}/> : null
-              }
                 {this.state.showMood
                 ? <Mood
                   watson={this.state.watson}

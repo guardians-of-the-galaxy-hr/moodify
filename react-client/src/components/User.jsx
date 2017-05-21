@@ -56,6 +56,7 @@ class User extends React.Component {
     .then(response => {
       console.log('user stats get request sent successfully');
       this.props.updateUserStats(response);
+      this.props.showLeft();
     })
     .catch(error => {
       console.error('user stats get request failed to send: ', error);
