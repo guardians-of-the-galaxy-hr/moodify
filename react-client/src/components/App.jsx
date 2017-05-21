@@ -198,6 +198,29 @@ class App extends React.Component {
     });
   } 
 
+  createNewPlaylists(playlistName) {
+    if (this.state.playlists.hasOwnProperty(playlistName)) { return };
+
+    let playlists = this.state.playlists;
+    playlists[playlistName] = [];
+    this.setState({
+      playlists: playlists
+    });
+  }
+
+  addToPlaylist(artistInfo) {
+    console.log('Artist Information----', artistInfo);
+    if (this.state.currentPlaylist && this.state.playlists) {
+      let updatedPlaylists = this.state.playlists;
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName, artistInfo.processResults, artistInfo.index]);
+      this.setState({
+        playlists: updatedPlaylists
+      })
+    } else {
+      alert('Please create a playlist first!');
+    }
+  }
+
   setCurrentPlaylist(playlist) {
     this.setState({
       currentPlaylist: playlist
@@ -332,20 +355,20 @@ class App extends React.Component {
               searchResultsLoading={this.state.searchResultsLoadingUser}
               loadPastSearchResults={this.loadPastSearchResults}
               showUserStats={this.showUserStats}
+              process={this.process}
             />
-            {this.state.showMood
-              ? <Mood
-                  watson={this.state.watson}
-                  songNameAndArtist={this.state.currentSongNameAndArtist}
-                />
-              : null
-            }
-            {this.state.showStats ?
-              <Stats
-                userStatsInfo={this.state.userStatsInfo}
-              /> : null
-            }
-             {this.state.showMood
+              {this.state.showStats ?
+              <Stats/> : null
+              }
+
+              <User showPrev={this.state.showResultsUser} 
+              prev={this.showResultsUser} 
+              upDown={this.state.upDownUser} 
+              runUpDown={this.upDownUser} 
+              process={this.process} 
+              searchResultsLoading={this.state.searchResultsLoadingUser} 
+              loadPastSearchResults={this.loadPastSearchResults}
+            /> {this.state.showMood
                 ? <Mood 
                   watson={this.state.watson} 
                   songNameAndArtist={this.state.currentSongNameAndArtist}/>

@@ -26,6 +26,11 @@ class SearchResults extends React.Component {
     this.props.addToPlaylist(artistInfo);
   }
 
+
+  addToPlayList(artistInfo) {
+    this.props.addToPlaylist(artistInfo);
+  }
+
   render() {
     if (this.props.searchResultsLoading) {
       return (

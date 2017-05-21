@@ -22,7 +22,6 @@ class PlayListEntry extends React.Component {
 
   createPlaylist(event) {
     event.preventDefault();
-    console.log(this.state.entry)
     this.props.createNewPlaylists(this.state.entry)
   }
 
@@ -55,8 +54,5 @@ class PlayListEntry extends React.Component {
     );
   }
 }
-
-
-
 
 export default PlayListEntry;
