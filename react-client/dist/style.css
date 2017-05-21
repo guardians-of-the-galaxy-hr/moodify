@@ -27,9 +27,16 @@ html {
 }
 
 .col2 {
-  display: flex;
+  display: inline-block;
   flex: 1 1 auto;
   order: 2;
+  flex-direction: column;
+}
+
+.col3 {
+  display: flex;
+  flex: 1 1 auto;
+  order: 1;
   flex-direction: column;
 }
 
@@ -465,7 +472,7 @@ h6 {
   font-size: 12;
   height: 20px;
   width: 150px;
-  display: inline-block;
+  display: inline;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -500,9 +507,23 @@ h6 {
   text-align: center;
 }
 
+#playlist-select {
+  display: inline-block;
+  width: 100px;
+}
+
+.playlistEntry {
+  display: inline-block;
+  float: left;
+}
+
+.user {
+  display: inline-block;
+  float: right;
+}
+
 .TweetsLoading {
   padding-top: 40%;
-
 }
 
 .displayUsername {

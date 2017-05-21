@@ -16,6 +16,7 @@ import LoginSignup from './LoginSignup.jsx';
 import PublicTweets from './PublicTweets.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
 import TweetResults from './TweetResults.jsx';
+import PlaylistEntry from './PlayListEntry.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -55,7 +56,9 @@ class App extends React.Component {
       showTweets: false,
       tweets: [],
       AllTweets: [],    
-
+      totalSongsListened: 0,
+      playlists: {},
+      currentPlaylist: null
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -67,10 +70,18 @@ class App extends React.Component {
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
     this.showUserStats = this.showUserStats.bind(this);
     this.updateUserStats = this.updateUserStats.bind(this);
+    this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
+    this.createNewPlaylists = this.createNewPlaylists.bind(this);
+    this.addToPlaylist = this.addToPlaylist.bind(this);
   }
 
   search(title, artist) {
-    this.setState({showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
+    this.setState({
+      showResults: true, 
+      searchResultsLoading: true, 
+      showPrev: true, 
+      upDown: false
+    });
 
     let options = {
       title: title,
@@ -80,7 +91,10 @@ class App extends React.Component {
       if (!res.data) {
         console.log('error');
       }
-      this.setState({searchResults: res.data, searchResultsLoading: false});
+      this.setState({
+        searchResults: res.data, 
+        searchResultsLoading: false
+      });
     });
   }
 
@@ -109,6 +123,7 @@ class App extends React.Component {
 
     axios.post('/process', input).then(res => {
       let data = res.data;
+      console.log('data at 0', data);
       this.setState({
         currentSongNameAndArtist: data[0],
         currentLyrics: data[1],
@@ -153,7 +168,7 @@ class App extends React.Component {
   showResults() {
     this.setState({
       showResults: !this.state.showResults,
-      showTweets: !this.state.showTweets,
+      showTweets: !this.state.showTweets
     });
     console.log(this.state.showTweets);
   }
@@ -176,21 +191,78 @@ class App extends React.Component {
     });
   }
 
+
   showUserStats() {
     this.setState({
       showStats: !this.state.showStats
     });
+  } 
+
+  createNewPlaylists(playlistName) {
+    if (this.state.playlists.hasOwnProperty(playlistName)) { return };
+
+    let playlists = this.state.playlists;
+    playlists[playlistName] = [];
+    this.setState({
+      playlists: playlists
+    });
   }
 
+  addToPlaylist(artistInfo) {
+    console.log('Artist Information----', artistInfo);
+    if (this.state.currentPlaylist && this.state.playlists) {
+      let updatedPlaylists = this.state.playlists;
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName, artistInfo.processResults, artistInfo.index]);
+      this.setState({
+        playlists: updatedPlaylists
+      })
+    } else {
+      alert('Please create a playlist first!');
+    }
+  }
+
+  setCurrentPlaylist(playlist) {
+    this.setState({
+      currentPlaylist: playlist
+    })
+  }
 
   updateUserStats(userInfo) {
     this.setState({
       userStatsInfo: {
         username: userInfo.data.username,
         listenedSongsList: userInfo.data.listenedSongsList,
-        totalSongsListened: userInfo.data.totalSongsListened,
+        totalSongsListened: userInfo.data.totalSongsListened
       }
     });
+  }
+
+  createNewPlaylists(playlistName) {
+    if (this.state.playlists.hasOwnProperty(playlistName)) { return };
+    let playlists = this.state.playlists;
+    playlists[playlistName] = [];
+    this.setState({
+      playlists: playlists
+    });
+  }
+
+  addToPlaylist(artistInfo) {
+    console.log('Artist Information----', artistInfo);
+    if (this.state.currentPlaylist && this.state.playlists) {
+      let updatedPlaylists = this.state.playlists;
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName, artistInfo.processResults, artistInfo.index]);
+      this.setState({
+        playlists: updatedPlaylists
+      })
+    } else {
+      alert('Please create a playlist first!');
+    }
+  }
+
+  setCurrentPlaylist(playlist) {
+    this.setState({
+      currentPlaylist: playlist
+    })
   }
 
   loadPastSearchResults(trackId) {
@@ -231,9 +303,11 @@ class App extends React.Component {
                   process={this.process}
                   searchTweets={this.searchTweets}
                   searchResultsLoading={this.state.searchResultsLoading}
+                  addToPlaylist={this.addToPlaylist}
                 />
               : null
             }
+
             {this.state.showPlayer
               ? <Lyrics
                   showPlayer={this.state.showPlayer}
@@ -260,6 +334,18 @@ class App extends React.Component {
           </div>
 
           <div className="col2">
+            <PlaylistEntry 
+              className="playlistEntry"
+              playlistList={this.state.playlistList} 
+              addToPlaylist={this.state.addToPlaylist} 
+              createNewPlaylists={this.createNewPlaylists} 
+              setCurrentPlaylist={this.setCurrentPlaylist} 
+              currentPlaylist={this.state.currentPlaylist} 
+              playlists={this.state.playlists} 
+              currentPlaylist={this.state.currentPlaylist}
+              currentSongNameAndArtist={this.state.currentSongNameAndArtist}
+              process={this.process}
+            />
             <User
               showPrev={this.state.showResultsUser}
               prev={this.showResultsUser}
@@ -269,21 +355,16 @@ class App extends React.Component {
               searchResultsLoading={this.state.searchResultsLoadingUser}
               loadPastSearchResults={this.loadPastSearchResults}
               showUserStats={this.showUserStats}
-              showStats={this.state.showStats}
-              updateUserStats={this.updateUserStats}
+              process={this.process}
             />
-            {this.state.showMood
-              ? <Mood
-                  watson={this.state.watson}
-                  songNameAndArtist={this.state.currentSongNameAndArtist}
-                />
-              : null
-            }
-            {this.state.showStats ?
-              <Stats
-                userStatsInfo={this.state.userStatsInfo}
-              /> : null
-            }
+              {this.state.showStats ?
+              <Stats/> : null
+              }
+                {this.state.showMood
+                ? <Mood 
+                  watson={this.state.watson} 
+                  songNameAndArtist={this.state.currentSongNameAndArtist}/>
+                : null}
           </div>
         </div>
       </div>

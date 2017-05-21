@@ -85,6 +85,7 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 app.post('/process', (req, res) => {
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
+  console.log("Song name and artist", songNameAndArtist)
   let watsonData = {};
   let lyricsLang;
   let lyricsEnglish;
@@ -167,6 +168,7 @@ app.post('/process', (req, res) => {
       if (req.session.username) {
         return db.User.where({username: req.session.username}).update({songs: songs});
       }
+      return db.User.where({username: req.session.username}).update({songs: songs});
     }
   })
   .then(() => {

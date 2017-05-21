@@ -6,13 +6,29 @@ class SearchResults extends React.Component {
     this.state = {
     };
     this.handleClick = this.handleClick.bind(this);
+    this.addToPlayList = this.addToPlayList.bind(this);
   }
 
   handleClick(e) {
     let index = e.target.getAttribute('value');
-    console.log(this.props.results.track_list[index].track.artist_name)
+    console.log('INDEX----', index);
     this.props.process(this.props.results.track_list[index].track);
     this.props.searchTweets(this.props.results.track_list[index].track.artist_name);
+  }
+
+
+  addToPlayList(artistInfo) {
+    this.props.addToPlaylist(artistInfo);
+  }
+
+
+  addToPlayList(artistInfo) {
+    this.props.addToPlaylist(artistInfo);
+  }
+
+
+  addToPlayList(artistInfo) {
+    this.props.addToPlaylist(artistInfo);
   }
 
   render() {
@@ -29,9 +45,21 @@ class SearchResults extends React.Component {
     } else {
       return (
         <div className="resultsBox">
-          {this.props.results.track_list.map((trackObj, i) => (
-            <div className='searchText' key={i} value={i} onClick={this.handleClick} > {i + 1}. {trackObj.track.track_name} - {trackObj.track.artist_name}</div>
-          ))}
+          {this.props.results.track_list.map((trackObj, i) => {
+            let artistDetails = {
+              trackName: trackObj.track.track_name, 
+              artist: trackObj.track.artist_name,
+              processResults: this.props.results.track_list,
+              index: i,
+              artist: trackObj.track.artist_name
+            }
+            return (
+              <div>
+              <div className='searchText' key={i} value={i} onClick={this.handleClick} > {i + 1}. {trackObj.track.track_name} - {trackObj.track.artist_name }</div>
+              <div className='searchText' key={i + 1} value={i} onClick={() => this.addToPlayList(artistDetails)} >Add to playlist</div>
+              </div>
+            )})
+          }
         </div>
       );
     }
