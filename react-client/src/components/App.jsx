@@ -287,7 +287,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header url={this.state.url}/>
+        <Header url={this.state.url} username={this.state.userStatsInfo.username}/>
         <div className="container">
           <div className="col1">
             <Search

@@ -507,33 +507,6 @@ h6 {
   text-align: center;
 }
 
-<<<<<<< HEAD
-.TweetsLoading {
-  padding-top: 40%;
-}
-
-.playlist-entry {
-  float: right;
-  position: relative;
-}
-
-#playlist-select {
-  display: inline-block;
-  width: 100px;
-}
-
-.playlist {
-  display: block;
-  float: left;
-}
-
-=======
->>>>>>> bb1cadad84fa36fa772e8444842354243672b848
-.playlist-entry {
-  float: right;
-  position: relative;
-}
-
 #playlist-select {
   display: inline-block;
   width: 100px;
@@ -548,3 +521,13 @@ h6 {
   display: inline-block;
   float: right;
 }
+
+.TweetsLoading {
+  padding-top: 40%;
+}
+
+.displayUsername {
+  text-align: right;
+  position: absolute;
+}
+

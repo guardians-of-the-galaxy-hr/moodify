@@ -1,6 +1,7 @@
 import React from 'react';
 import renderif from 'render-if';
 import Player from './Player.jsx';
+import axios from 'axios';
 
 class Lyrics extends React.Component {
   constructor(props) {
@@ -21,13 +22,13 @@ class Lyrics extends React.Component {
 
   increamentSongsListened () {
     console.log("321");
-    // axios.post('/incrementCount')
-    // .then(response => {
+    axios.post('/incrementCount')
+    .then(response => {
 
-    // })
-    // .catch(error => {
+    })
+    .catch(error => {
 
-    // });
+    });
   }
 
   render() {
@@ -46,11 +47,11 @@ class Lyrics extends React.Component {
             </button>
           )}
           {this.state.langOriginal
-            ? <h6>{this.props.songNameAndArtist[0] + ' - ' + this.props.songNameAndArtist[1]}</h6>
+            ? <h6 onClick={this.increamentSongsListened.bind(this)}>{this.props.songNameAndArtist[0] + ' - ' + this.props.songNameAndArtist[1]}</h6>
             : <h6>{this.props.artistEnglish + ' - ' + this.props.titleEnglish}</h6>
           }
           {this.props.showPlayer
-            ? <Player spotifyURI={this.props.spotifyURI} loading={this.props.loading} onClick={this.increamentSongsListened}/>
+            ? <Player spotifyURI={this.props.spotifyURI} loading={this.props.loading}/>
             : null }
           {this.state.langOriginal
             ? <pre>{this.props.lyrics}</pre>
