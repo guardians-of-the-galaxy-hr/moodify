@@ -198,16 +198,17 @@ app.get('/searchTweets', (req, res) => {
   .catch((err) => {
     res.send(err);
   });
-});  
+});
 
 app.get('/allTweets', (req, res) => {
   //console.log(selectedSong)
   var tweetArray = selectedSong.data;
   var tweetAnalyses = [];
-  Promise.map(selectedSong.data.statuses, function(input, index) {  
+  Promise.map(selectedSong.data.statuses, function(input, index) {
+  // Promise.map(selectedSong.statuses, function(input, index) {
     // return googleTranslateHelpers.translateToEnglish(input.text)
     // .then((translatedText) => {
-    //   tweetArray.statuses[index].text = translatedText;     
+    //   tweetArray.statuses[index].text = translatedText;
     // })
     // .then((translatedText) => {
     return watsonHelpers.queryWatsonNLUHelper(input.text)
@@ -228,7 +229,7 @@ app.get('/allTweets', (req, res) => {
   .catch((error) => {
     res.send(error);
   });
-  
+
 });
 
 
@@ -287,15 +288,14 @@ app.post('/loadPastSearchResults', (req, res) => {
 });
 
 app.get('/userStats', (req, res) => {
-
   userStatsHelpers.getUserStats(usernameStats, (err, data) => {
     if (err) { console.error('error in /userStats: ', err); }
     let singleOrPlural = '';
     data.totalSongsListened <= 1 ? singleOrPlural = 'song' : singleOrPlural = 'songs';
     let message = 'Hey ' + data.username + ', up to this point, you have listened '
       + data.totalSongsListened + ' ' + singleOrPlural + '  , thank you again for choosing Moooodify!';
-    res.send(data);
     userStatsHelpers.readStats(message);
+    res.send(data);
   });
 });
 
