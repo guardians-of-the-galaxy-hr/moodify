@@ -28,7 +28,7 @@ class App extends React.Component {
       currentLyrics: '',
       currentPlaylist: null,
       currentSongNameAndArtist: [],
-      loggedIn: false,
+      loginState: false,
       lyricsEnglish: '',
       lyricsLang: 'en',
       lyricsLoading: false,
@@ -67,6 +67,7 @@ class App extends React.Component {
     this.hideUsernameOnLogout = this.hideUsernameOnLogout.bind(this);
     this.createNewPlaylists = this.createNewPlaylists.bind(this);
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
+    this.getLoginState = this.getLoginState.bind(this);
     this.process = this.process.bind(this);
     this.search = this.search.bind(this);
     this.searchTweets = this.searchTweets.bind(this);
@@ -80,17 +81,21 @@ class App extends React.Component {
     this.updateUserStats = this.updateUserStats.bind(this);
   }
 
-  componentDidMount() {
-    this.getUserName();
-  }
-
-  getUserName () {
+  getUserName() {
     axios.get('/getUsername')
     .then(response => {
-      response.data === '' ? null : this.setState({ showLoginName: true, userStatsInfo: {username: response.data}});
+      if (this.state.loginState) {
+        response.data === '' ? null : this.setState({ showLoginName: true, userStatsInfo: {username: response.data}});
+      }
     })
     .catch(error => {
       console.error('failed to get user name: ', error );
+    });
+  }
+
+  getLoginState(currentLoginState) {
+    this.setState({
+      loginState: currentLoginState
     });
   }
 
@@ -208,7 +213,6 @@ class App extends React.Component {
       upDownUser: !this.state.upDownUser
     });
   }
-
 
   showUserStats() {
     this.setState({
@@ -398,6 +402,8 @@ class App extends React.Component {
               updateUserStats={this.updateUserStats}
               hideUsernameOnLogout={this.hideUsernameOnLogout}
               showLeft={this.showLeft}
+              getLoginState={this.getLoginState}
+              getUserName={this.getUserName}
             />
                 {this.state.showMood
                 ? <Mood

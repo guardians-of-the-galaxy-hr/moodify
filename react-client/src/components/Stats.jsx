@@ -15,4 +15,3 @@ class Stats extends React.Component {
 }
 
 export default Stats;
-// <p>List of songs that have been played: <span className="stats-span">{this.props.userStatsInfo.listenedSongsList}</span></p>
