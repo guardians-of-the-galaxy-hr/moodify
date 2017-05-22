@@ -44,11 +44,11 @@ const readStats = (text) => {
     VoiceId: 'Emma'
   };
 
-  const speaker = new Speaker({
-    channels: 1,
-    bitDepth: 16,
-    sampleRate: 16000
-  });
+  // const speaker = new Speaker({
+  //   channels: 1,
+  //   bitDepth: 16,
+  //   sampleRate: 16000
+  // });
 
   Polly.synthesizeSpeech(params, (err, data) => {
     if (err) {
@@ -60,7 +60,18 @@ const readStats = (text) => {
         // convert AudioStream into a readable stream
         bufferStream.end(data.AudioStream);
         // Pipe into Player
-        bufferStream.pipe(speaker);
+        bufferStream.pipe(
+          Speaker({
+            //PCM input format defaults, optional.
+            channels: 1,
+            bitDepth: 16,
+            sampleRate: 16000
+            //byteOrder: 'LE',
+            //signed: true,
+            //float: false,
+            //interleaved: true,
+          })
+        );
       }
     }
   });
@@ -69,3 +80,4 @@ const readStats = (text) => {
 module.exports.readStats = Promise.promisify(readStats);
 module.exports.getUserStats = Promise.promisify(getUserStats);
 module.exports.incrementCount = Promise.promisify(incrementCount);
+
