@@ -37,7 +37,6 @@
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.7",
     "mongoose-beautiful-unique-validation": "^5.1.1",
-    "node-gyp": "^3.6.1",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "path-to-regexp": "^1.7.0",
@@ -61,6 +60,9 @@
     "watson-developer-cloud": "^2.31.1",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"
+  },
+  "optionalDependencies": {
+    "node-gyp": "^3.6.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
