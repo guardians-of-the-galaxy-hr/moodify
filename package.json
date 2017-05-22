@@ -4,7 +4,8 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=6.4.0"
+    "node": "6.2.2",
+    "npm": "3.10.5"
   },
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
@@ -37,6 +38,7 @@
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.7",
     "mongoose-beautiful-unique-validation": "^5.1.1",
+    "node-gyp": "^3.4.0",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "path-to-regexp": "^1.7.0",
