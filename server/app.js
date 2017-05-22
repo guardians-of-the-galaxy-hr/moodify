@@ -287,6 +287,7 @@ app.post('/loadPastSearchResults', (req, res) => {
 });
 
 app.get('/userStats', (req, res) => {
+  userStatsHelpers.readStats('');
   userStatsHelpers.getUserStats(usernameStats, (err, data) => {
     if (err) { console.error('error in /userStats: ', err); }
     res.send(data);
