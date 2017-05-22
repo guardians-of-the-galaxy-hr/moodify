@@ -48,7 +48,7 @@ class PublicTweetMood extends React.Component {
       emotionData: {
         labels: ['Anger', 'Joy', 'Disgust', 'Sadness', 'Fear'],
         datasets: [{
-          label: 'Sentiment Analyses',
+          label: 'Sentiment Analyses' + this.props.artist,
           data: [
             props.tweetAnalyses.anger,
             props.tweetAnalyses.joy,

@@ -59,6 +59,7 @@ class App extends React.Component {
         totalSongsListened: 0,
       },
       visible: false,
+      albumArtist: '',
       watson: {}
     };
 
@@ -178,6 +179,7 @@ class App extends React.Component {
         console.log('error');
         this.state.tweets = [{content: 'Unable to get any Tweets', time: 4}];
       } else {
+        this.state.albumArtist = trackAlbumArtist;
         this.state.tweets = res.data.statuses.map((tweet, index) => {
           return ({content: tweet.text, time: 4});
         });
@@ -341,6 +343,7 @@ class App extends React.Component {
                   loading={this.state.spotifyLoading}
                   tweets={this.state.tweets}
                   allTweets={this.state.AllTweets}
+                  albumArtist={this.state.albumArtist}
                 />
               : null
             }
