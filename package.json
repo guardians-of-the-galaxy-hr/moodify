@@ -61,9 +61,9 @@
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"
   },
-  "optionalDependencies": {
-    "node-gyp": "^3.6.1"
-  },
+  // "optionalDependencies": {
+  //   "node-gyp": "^3.6.1"
+  // },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
