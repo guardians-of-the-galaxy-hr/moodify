@@ -1,8 +1,6 @@
 const Promise = require('bluebird');
 const db = require('../database');
-
 const Stream = require('stream');
-// const Speaker = require('speaker');
 const Speaker = require('audio-speaker/stream');
 const config = require('../config/index.js');
 
@@ -44,12 +42,6 @@ const readStats = (text) => {
     VoiceId: 'Emma'
   };
 
-  // const speaker = new Speaker({
-  //   channels: 1,
-  //   bitDepth: 16,
-  //   sampleRate: 16000
-  // });
-
   Polly.synthesizeSpeech(params, (err, data) => {
     if (err) {
       console.log(err.code);
@@ -63,9 +55,9 @@ const readStats = (text) => {
         bufferStream.pipe(
           Speaker({
             //PCM input format defaults, optional.
-            channels: 1,
+            channels: 2,
             bitDepth: 16,
-            sampleRate: 16000
+            sampleRate: 44100
             //byteOrder: 'LE',
             //signed: true,
             //float: false,
