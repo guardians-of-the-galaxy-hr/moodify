@@ -198,14 +198,7 @@ app.get('/searchTweets', (req, res) => {
   .catch((err) => {
     res.send(err);
   });
-<<<<<<< HEAD
-
-  app.get('/allTweets', (req, res) => {
-    res.send(selectedSong);
-  });
-=======
 });  
->>>>>>> Setup Twitter Sentiments
 
 app.get('/allTweets', (req, res) => {
   var tweetArray = selectedSong;
@@ -218,18 +211,16 @@ app.get('/allTweets', (req, res) => {
     // .then((translatedText) => {
     return watsonHelpers.queryWatsonNLUHelper(input.text)
     .then((watsonAnalyses) =>{
-      console.log('**********************');
       if (watsonAnalyses.keywords.length !== 0) {
-        console.log('Analyses emotion', watsonAnalyses.keywords[0].emotion);
+        console.log('From Watsonnnnnnn', watsonAnalyses.keywords[0].emotion);
         tweetAnalyses.push(watsonAnalyses.keywords[0].emotion);
       }
     })
     .catch((error) => {
-      //console.log("errrrrrrror",error);
     });
   })
   .then((result) => {
-    res.send({'tweets': tweetArray, 'tweetAnalyses': tweetAnalyses});
+    res.send({'tweets': tweetArray, 'tweetAnalyses': tweetAnalyses} );
   })
   .catch((error) => {
     res.send(error);

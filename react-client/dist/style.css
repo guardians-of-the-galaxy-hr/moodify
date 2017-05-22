@@ -593,3 +593,11 @@ h6 {
   font: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.moodClass {
+  padding-left: 20%;
+  padding-right:20%;
+  padding-bottom: 30%
+}
+.tweetClass {
+  padding-top: 30%
+}
