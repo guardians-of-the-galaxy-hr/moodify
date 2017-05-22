@@ -17,24 +17,27 @@ import PublicTweets from './PublicTweets.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
 import TweetResults from './TweetResults.jsx';
 import PlaylistEntry from './PlayListEntry.jsx';
+import SideMenu from './SideMenu.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSongNameAndArtist: [],
-      currentLyrics: '',
-      watson: {},
-      spotifyURI: null,
-      lyricsLang: 'en',
-      lyricsEnglish: '',
+      AllTweets: [],
       artistEnglish: '',
-      titleEnglish: '',
+      currentLyrics: '',
+      currentPlaylist: null,
+      currentSongNameAndArtist: [],
+      loginState: false,
+      lyricsEnglish: '',
+      lyricsLang: 'en',
+      lyricsLoading: false,
+      playlists: {},
+      spotifyURI: null,
       searchResults: [],
       searchResultsUser: [],
       searchResultsLoading: false,
       spotifyLoading: false,
-      lyricsLoading: false,
       showPlayer: false,
       showLyrics: false,
       showMood: false,
@@ -43,43 +46,64 @@ class App extends React.Component {
       showStats: false,
       showPrev: false,
       showTweets: false,
+      showLoginName: false,
+      searchResultsLoadingUser: false,
+      titleEnglish: '',
+      tweets: [],
       upDown: true,
       url: window.location.href,
-      loggedIn: false,
       upDownUser: false,
-      searchResultsLoadingUser: false,
       userStatsInfo: {
         username: '',
         listenedSongsList: [],
         totalSongsListened: 0,
       },
-      showTweets: false,
-      tweets: [],
-      AllTweets: [],    
-      totalSongsListened: 0,
-      playlists: {},
-      currentPlaylist: null
+      visible: false,
+      watson: {}
     };
-    this.search = this.search.bind(this);
+
+    this.addToPlaylist = this.addToPlaylist.bind(this);
+    this.getUserName = this.getUserName.bind(this);
+    this.hideUsernameOnLogout = this.hideUsernameOnLogout.bind(this);
+    this.createNewPlaylists = this.createNewPlaylists.bind(this);
+    this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
+    this.getLoginState = this.getLoginState.bind(this);
     this.process = this.process.bind(this);
+    this.search = this.search.bind(this);
     this.searchTweets = this.searchTweets.bind(this);
+    this.showLeft = this.showLeft.bind(this);
     this.showResults = this.showResults.bind(this);
+    this.showResultsUser = this.showResultsUser.bind(this);
+    this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
+    this.showUserStats = this.showUserStats.bind(this);
     this.upDown = this.upDown.bind(this);
     this.upDownUser = this.upDownUser.bind(this);
-    this.showResultsUser = this.showResultsUser.bind(this);
-    this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
-    this.showUserStats = this.showUserStats.bind(this);
     this.updateUserStats = this.updateUserStats.bind(this);
-    this.setCurrentPlaylist = this.setCurrentPlaylist.bind(this);
-    this.createNewPlaylists = this.createNewPlaylists.bind(this);
-    this.addToPlaylist = this.addToPlaylist.bind(this);
+  }
+
+  getUserName() {
+    axios.get('/getUsername')
+    .then(response => {
+      if (this.state.loginState) {
+        response.data === '' ? null : this.setState({ showLoginName: true, userStatsInfo: {username: response.data}});
+      }
+    })
+    .catch(error => {
+      console.error('failed to get user name: ', error );
+    });
+  }
+
+  getLoginState(currentLoginState) {
+    this.setState({
+      loginState: currentLoginState
+    });
   }
 
   search(title, artist) {
     this.setState({
-      showResults: true, 
-      searchResultsLoading: true, 
-      showPrev: true, 
+      showResults: true,
+      searchResultsLoading: true,
+      showPrev: true,
       upDown: false
     });
 
@@ -92,7 +116,7 @@ class App extends React.Component {
         console.log('error');
       }
       this.setState({
-        searchResults: res.data, 
+        searchResults: res.data,
         searchResultsLoading: false
       });
     });
@@ -137,10 +161,10 @@ class App extends React.Component {
         lyricsLoading: false,
         showLyrics: true,
         showMood: true
-      });     
+      });
     }).catch(error => {
       throw error;
-    });  
+    });
   }
 
   searchTweets(trackAlbumArtist) {
@@ -160,9 +184,8 @@ class App extends React.Component {
         });
         this.state.AllTweets = res.data;
       }
-      //console.log(res.data.statuses);     
+      //console.log(res.data.statuses);
     });
-
   }
 
   showResults() {
@@ -191,12 +214,17 @@ class App extends React.Component {
     });
   }
 
-
   showUserStats() {
     this.setState({
       showStats: !this.state.showStats
     });
-  } 
+  }
+
+  hideUsernameOnLogout() {
+    this.setState({
+      showLoginName: false
+    });
+  }
 
   createNewPlaylists(playlistName) {
     if (this.state.playlists.hasOwnProperty(playlistName)) { return };
@@ -215,7 +243,7 @@ class App extends React.Component {
       updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName, artistInfo.processResults, artistInfo.index]);
       this.setState({
         playlists: updatedPlaylists
-      })
+      });
     } else {
       alert('Please create a playlist first!');
     }
@@ -224,7 +252,7 @@ class App extends React.Component {
   setCurrentPlaylist(playlist) {
     this.setState({
       currentPlaylist: playlist
-    })
+    });
   }
 
   updateUserStats(userInfo) {
@@ -237,6 +265,11 @@ class App extends React.Component {
     });
   }
 
+  showLeft () {
+    console.log('current lyric: ', this.state.songNameAndArtist);
+    this.refs.left.show();
+  }
+
   createNewPlaylists(playlistName) {
     if (this.state.playlists.hasOwnProperty(playlistName)) { return };
     let playlists = this.state.playlists;
@@ -253,7 +286,7 @@ class App extends React.Component {
       updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName, artistInfo.processResults, artistInfo.index]);
       this.setState({
         playlists: updatedPlaylists
-      })
+      });
     } else {
       alert('Please create a playlist first!');
     }
@@ -262,7 +295,7 @@ class App extends React.Component {
   setCurrentPlaylist(playlist) {
     this.setState({
       currentPlaylist: playlist
-    })
+    });
   }
 
   loadPastSearchResults(trackId) {
@@ -287,8 +320,18 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header url={this.state.url} username={this.state.userStatsInfo.username}/>
+        <Header url={this.state.url}
+          username={this.state.userStatsInfo.username}
+          showLoginName={this.state.showLoginName}
+        />
         <div className="container">
+            <SideMenu
+                showStats={this.state.showStats}
+                userStatsInfo={this.state.userStatsInfo}
+                visible={this.state.visible}
+                ref="left"
+                alignment="left"
+              />
           <div className="col1">
             <Search
               search={this.search}
@@ -322,26 +365,26 @@ class App extends React.Component {
                   titleEnglish={this.state.titleEnglish}
                 />
               : null
-            }    
+            }
             {this.state.showTweets
-              ? <TweetResults 
-                  loading={this.state.spotifyLoading} 
-                  tweets={this.state.tweets} 
+              ? <TweetResults
+                  loading={this.state.spotifyLoading}
+                  tweets={this.state.tweets}
                   allTweets={this.state.AllTweets}
-                /> 
+                />
               : null
             }
           </div>
 
           <div className="col2">
-            <PlaylistEntry 
+            <PlaylistEntry
               className="playlistEntry"
-              playlistList={this.state.playlistList} 
-              addToPlaylist={this.state.addToPlaylist} 
-              createNewPlaylists={this.createNewPlaylists} 
-              setCurrentPlaylist={this.setCurrentPlaylist} 
-              currentPlaylist={this.state.currentPlaylist} 
-              playlists={this.state.playlists} 
+              playlistList={this.state.playlistList}
+              addToPlaylist={this.state.addToPlaylist}
+              createNewPlaylists={this.createNewPlaylists}
+              setCurrentPlaylist={this.setCurrentPlaylist}
+              currentPlaylist={this.state.currentPlaylist}
+              playlists={this.state.playlists}
               currentPlaylist={this.state.currentPlaylist}
               currentSongNameAndArtist={this.state.currentSongNameAndArtist}
               process={this.process}
@@ -356,13 +399,15 @@ class App extends React.Component {
               loadPastSearchResults={this.loadPastSearchResults}
               showUserStats={this.showUserStats}
               process={this.process}
+              updateUserStats={this.updateUserStats}
+              hideUsernameOnLogout={this.hideUsernameOnLogout}
+              showLeft={this.showLeft}
+              getLoginState={this.getLoginState}
+              getUserName={this.getUserName}
             />
-              {this.state.showStats ?
-              <Stats/> : null
-              }
                 {this.state.showMood
-                ? <Mood 
-                  watson={this.state.watson} 
+                ? <Mood
+                  watson={this.state.watson}
                   songNameAndArtist={this.state.currentSongNameAndArtist}/>
                 : null}
           </div>
