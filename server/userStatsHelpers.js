@@ -3,6 +3,7 @@ const db = require('../database');
 
 const Stream = require('stream');
 // const Speaker = require('speaker');
+const Speaker = require('audio-speaker/stream');
 const config = require('../config/index.js');
 
 const AWS = require('aws-sdk');
@@ -42,11 +43,12 @@ const readStats = (text) => {
     TextType: 'text',
     VoiceId: 'Emma'
   };
-  // const speaker = new Speaker({
-  //   channels: 1,
-  //   bitDepth: 16,
-  //   sampleRate: 16000
-  // });
+
+  const speaker = new Speaker({
+    channels: 1,
+    bitDepth: 16,
+    sampleRate: 16000
+  });
 
   Polly.synthesizeSpeech(params, (err, data) => {
     if (err) {
@@ -58,7 +60,7 @@ const readStats = (text) => {
         // convert AudioStream into a readable stream
         bufferStream.end(data.AudioStream);
         // Pipe into Player
-        // bufferStream.pipe(speaker);
+        bufferStream.pipe(speaker);
       }
     }
   });
