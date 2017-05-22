@@ -17,14 +17,14 @@ class PublicTweetMood extends React.Component {
             props.tweetAnalyses.sadness
           ],
           backgroundColor: [
-            'rgba(252, 61, 57, 1)',
+            'rgba(128, 15, 28, 1)',
             'rgba(254, 203, 46, 1)',
             'rgba(83, 215, 105, 1)',
             'rgba(20, 126, 251, 1)',
             'rgba(193, 53, 132, 1)',
           ],
           borderColor: [
-            'rgba(252, 61, 57, 1)',
+            'rgba(128, 15, 28, 1)',
             'rgba(254, 203, 46, 1)',
             'rgba(83, 215, 105, 1)',
             'rgba(20, 126, 251, 1)',
@@ -57,14 +57,14 @@ class PublicTweetMood extends React.Component {
             props.tweetAnalyses.sadness
           ],
           backgroundColor: [
-            'rgba(252, 61, 57, 1)',
+            'rgba(128, 15, 28, 1)',
             'rgba(254, 203, 46, 1)',
             'rgba(83, 215, 105, 1)',
             'rgba(20, 126, 251, 1)',
             'rgba(193, 53, 132, 1)',
           ],
           borderColor: [
-            'rgba(252, 61, 57, 1)',
+            'rgba(128, 15, 28, 1)',
             'rgba(254, 203, 46, 1)',
             'rgba(83, 215, 105, 1)',
             'rgba(20, 126, 251, 1)',
@@ -76,17 +76,16 @@ class PublicTweetMood extends React.Component {
       emotionOptions: {
         title: {
           display: false,
-          text: 'hello',
           fontSize: 24
         },
       },
     });
   }
   render() {
-    console.log(this.state.emotionData.datasets[0].data);
+    //console.log(this.state.emotionData.datasets[0].data);
     return (
       <div className="maingraph">
-        <h2>Emotion</h2>
+        <h2> Twitter Sentiment Analyses</h2>
         <Bar data={this.state.emotionData} options={this.state.emotionOptions} width={500}/>
       </div>
     );       

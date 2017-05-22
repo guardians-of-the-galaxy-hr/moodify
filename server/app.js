@@ -212,7 +212,7 @@ app.get('/allTweets', (req, res) => {
     return watsonHelpers.queryWatsonNLUHelper(input.text)
     .then((watsonAnalyses) =>{
       if (watsonAnalyses.keywords.length !== 0) {
-        console.log('From Watsonnnnnnn', watsonAnalyses.keywords[0].emotion);
+        //console.log('From Watsonnnnnnn', watsonAnalyses.keywords[0].emotion);
         tweetAnalyses.push(watsonAnalyses.keywords[0].emotion);
       }
     })

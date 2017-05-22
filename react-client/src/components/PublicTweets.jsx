@@ -3,7 +3,6 @@ import Header from './Header.jsx';
 import axios from 'axios';
 import Tweet from 'react-tweet';
 import {Redirect, Link} from 'react-router-dom';
-import {Bar} from 'react-chartjs-2';
 import PublicTweetMood from './PublicTweetMood.jsx';
 
 
@@ -29,7 +28,6 @@ class PublicTweets extends React.Component {
       if (!res.data) {
         console.log('error');
       }
-      console.log(res.data.tweetAnalyses);
       res.data.tweetAnalyses.map((item) => {
         if (item !== null) {
           this.state.count++;
