@@ -48,17 +48,18 @@ const readStats = (text) => {
   var params = {
     OutputFormat: 'pcm',
     SampleRate: '16000',
-    Text: 'I used to rule the world Seas would rise when I gave the word Now in the morning I sleep alone Sweep the streets I used to own I used to roll the dice',
+    Text: text,
     TextType: 'text',
-    VoiceId: 'Salli'
+    VoiceId: 'Emma'
+    // ssml: text,
+    // TextType: 'ssml',
   };
 
   Polly.synthesizeSpeech(params, (err, data) => {
     if (err) {
-      console.log("error: ", err);
       console.log(err.code);
     } else if (data) {
-      console.log("got through!");
+      console.log('got through!');
       if (data.AudioStream instanceof Buffer) {
         // Initiate the source
         var bufferStream = new Stream.PassThrough();

@@ -287,10 +287,12 @@ app.post('/loadPastSearchResults', (req, res) => {
 });
 
 app.get('/userStats', (req, res) => {
-  userStatsHelpers.readStats('');
+
   userStatsHelpers.getUserStats(usernameStats, (err, data) => {
     if (err) { console.error('error in /userStats: ', err); }
+    let message = 'Hey ' + data.username + ', up to this point, you have listened ' + data.totalSongsListened + ' songs, thank you again for choosing Moooodify!';
     res.send(data);
+    userStatsHelpers.readStats(message);
   });
 });
 
