@@ -6,7 +6,6 @@ class PlayListEntry extends React.Component {
     super(props);
     this.state = 
     {
-      playlist: [],
       entry: ''
     };
 
