@@ -18,7 +18,7 @@ Promise.promisifyAll(twitter);
 
 var queryTwitter = (artistHashTag) => {
   return new Promise((resolve, reject) => {
-    twitter.getAsync('search/tweets', { q: `#${artistHashTag} since:2016-03-11`, count: 3 })
+    twitter.getAsync('search/tweets', { q: `#${artistHashTag} since:2016-03-11`, count: 10})
     .then((data) => {
       selectedSong = data;
       resolve(data);   

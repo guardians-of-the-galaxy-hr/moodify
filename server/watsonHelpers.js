@@ -79,11 +79,10 @@ const queryWatsonNLUHelper = (songString) => {
   };
   return nlu.analyzeAsync(parameters)
   .then (data => {
-    console.log("result from watsonnnn", data);
+    //console.log("result from watsonnnn", data);
     return data;
   })
   .catch (err => {
-    console.log('queryWatsonNLUHelper error: ', err);
     return err;
   });
 };

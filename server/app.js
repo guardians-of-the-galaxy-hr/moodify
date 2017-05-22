@@ -209,6 +209,7 @@ app.get('/searchTweets', (req, res) => {
 
 app.get('/allTweets', (req, res) => {
   var tweetArray = selectedSong;
+  var tweetAnalyses = [];
   Promise.map(selectedSong.statuses, function(input, index) {  
     // return googleTranslateHelpers.translateToEnglish(input.text)
     // .then((translatedText) => {
@@ -216,15 +217,19 @@ app.get('/allTweets', (req, res) => {
     // })
     // .then((translatedText) => {
     return watsonHelpers.queryWatsonNLUHelper(input.text)
-    then((watsonAnalyses) =>{
-      console.log('From Watsonnnnnnn', watsonAnalyses);
+    .then((watsonAnalyses) =>{
+      console.log('**********************');
+      if (watsonAnalyses.keywords.length !== 0) {
+        console.log('Analyses emotion', watsonAnalyses.keywords[0].emotion);
+        tweetAnalyses.push(watsonAnalyses.keywords[0].emotion);
+      }
+    })
+    .catch((error) => {
+      //console.log("errrrrrrror",error);
     });
   })
-    .catch((error) => {
-      console.log(error);
-    })
   .then((result) => {
-    res.send(tweetArray);
+    res.send({'tweets': tweetArray, 'tweetAnalyses': tweetAnalyses});
   })
   .catch((error) => {
     res.send(error);

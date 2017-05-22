@@ -10,6 +10,7 @@ class PublicTweets extends React.Component {
     super(props);
     this.state = {
       allTweets: [],
+      tweetAnalyses: [],
     };
   } 
   componentDidMount() {
@@ -18,8 +19,11 @@ class PublicTweets extends React.Component {
       if (!res.data) {
         console.log('error');
       }
-      console.log(res.data);
-      this.setState({allTweets: res.data.statuses});
+      console.log(res.data.tweets);
+      this.setState({
+        allTweets: res.data.tweets.statuses,
+        tweetAnalyses: res.data.tweetAnalyses
+      });
     });       
   } 
 
