@@ -23,10 +23,11 @@ const getUserStats = (username, callback) => {
   });
 };
 
-const incrementCount = (username, callback) => {
+const incrementCount = (username, songNameAndArtist, callback) => {
   db.findUserAsync(username, (err, body) => {
     if (err) { console.error('failed to increment total songs listened count: ', err); }
     body.totalSongsListened ++;
+    body.listenedSongsList[songNameAndArtist] === undefined ? 1 : body.listenedSongList[songNameAndArtist]++;
     body.save();
     callback(err, body);
   });
@@ -55,9 +56,9 @@ const readStats = (text) => {
         bufferStream.pipe(
           Speaker({
             //PCM input format defaults, optional.
-            channels: 2,
+            channels: 1,
             bitDepth: 16,
-            sampleRate: 44100
+            sampleRate: 16000
             //byteOrder: 'LE',
             //signed: true,
             //float: false,

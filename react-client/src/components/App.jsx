@@ -230,7 +230,7 @@ class App extends React.Component {
   setCurrentPlaylist(playlist) {
     this.setState({
       currentPlaylist: playlist
-    })
+    });
   }
 
   createNewPlaylists(playlistName) {

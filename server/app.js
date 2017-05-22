@@ -293,14 +293,15 @@ app.get('/userStats', (req, res) => {
     let singleOrPlural = '';
     data.totalSongsListened <= 1 ? singleOrPlural = 'song' : singleOrPlural = 'songs';
     let message = 'Hey ' + data.username + ', up to this point, you have listened '
-      + data.totalSongsListened + ' ' + singleOrPlural + '  , thank you again for choosing Moooodify!';
+      + data.totalSongsListened + ' ' + singleOrPlural + '  , thank you again for choosing Moowu wudify!';
     userStatsHelpers.readStats(message);
     res.send(data);
   });
 });
 
 app.post('/incrementCount', (req, res) => {
-  userStatsHelpers.incrementCount(usernameStats, (err) => {
+  songNameAndArtist = req.body.artist + '\'s ' + req.body.songName;
+  userStatsHelpers.incrementCount(usernameStats, req.body, (err) => {
     if (err) { console.error('error in /incrementCount: ', err); }
     res.send();
   });
