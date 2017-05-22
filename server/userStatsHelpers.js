@@ -6,11 +6,17 @@ const Speaker = require('speaker');
 const config = require('../config/index.js');
 
 const AWS = require('aws-sdk');
-const AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID;
-const AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY;
+// AWS.config.loadFromPath('../config/index.js');
+// const AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID;
+// const AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY;
 
-const Polly = new AWS.Polly({
-    // signatureVersion: 'v4',
+AWS.config.update({
+  accessKeyId: config.AWS_ACCESS_KEY_ID,
+  secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
+});
+
+var Polly = new AWS.Polly({
+  // signatureVersion: 'v4',
   region: 'us-east-1'
 });
 
@@ -19,13 +25,6 @@ const speaker = new Speaker({
   bitDepth: 16,
   sampleRate: 16000
 });
-
-var data ={
-  from: 'Shawn Feng <shawnsfeng@gmail.com>',
-  to: 'mahima.srikanta@gmail.com',
-  subject: 'testing mailgun api',
-  text: 'manually send email using mail gun service'
-};
 
 const getUserStats = (username, callback) => {
   db.findUserAsync(username, (err, body) => {
@@ -45,6 +44,7 @@ const incrementCount = (username, callback) => {
 
 
 const readStats = (text) => {
+
   var params = {
     OutputFormat: 'pcm',
     SampleRate: '16000',
