@@ -21,7 +21,11 @@ class Lyrics extends React.Component {
   }
 
   increamentSongsListened () {
-    axios.post('/incrementCount')
+    let param = {
+      artist: this.props.songNameAndArtist[0],
+      songName: this.props.songNameAndArtist[1]
+    };
+    axios.post('/incrementCount', param)
     .then(response => {
       console.log('incremented listened songs count');
     })

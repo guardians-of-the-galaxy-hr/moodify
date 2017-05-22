@@ -4,7 +4,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=6.4.0"
+    "node": ">=6.8.0"
   },
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
@@ -15,6 +15,8 @@
     "test": "node ./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
+    "audio-speaker": "^1.5.0",
+    "aws-sdk": "^2.54.0",
     "axios": "^0.16.1",
     "babel-cli": "^6.7.5",
     "babel-core": "^6.24.1",
@@ -36,6 +38,7 @@
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.7",
     "mongoose-beautiful-unique-validation": "^5.1.1",
+    "node-gyp": "^3.6.1",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "path-to-regexp": "^1.7.0",
@@ -52,6 +55,7 @@
     "render-if": "^0.1.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
+    "stream": "0.0.2",
     "style-loader": "^0.17.0",
     "twit": "^2.2.5",
     "watson-developer-cloud": "^2.31.1",

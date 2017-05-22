@@ -17,7 +17,9 @@
     "TWITTER_API_CONSUMER_KEY": {"required": true},
     "TWITTER_API_CONSUMER_SECRET": {"required": true},
     "TWITTER_API_ACCESS_TOKEN": {"required": true},
-    "TWITTER_API_ACCESS_TOKEN_SECRET": {"required": true}
+    "TWITTER_API_ACCESS_TOKEN_SECRET": {"required": true},
+    "AWS_ACCESS_KEY_ID": {"required": true},
+    "AWS_SECRET_ACCESS_KEY": {"required": true}
   },
   "formation": {
   },

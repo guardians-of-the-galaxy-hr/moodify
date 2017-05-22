@@ -230,7 +230,7 @@ class App extends React.Component {
   setCurrentPlaylist(playlist) {
     this.setState({
       currentPlaylist: playlist
-    })
+    });
   }
 
   createNewPlaylists(playlistName) {
@@ -266,8 +266,35 @@ class App extends React.Component {
   }
 
   showLeft () {
-    console.log('current lyric: ', this.state.songNameAndArtist);
     this.refs.left.show();
+  }
+
+  createNewPlaylists(playlistName) {
+    if (this.state.playlists.hasOwnProperty(playlistName)) { return; }
+    let playlists = this.state.playlists;
+    playlists[playlistName] = [];
+    this.setState({
+      playlists: playlists
+    });
+  }
+
+  addToPlaylist(artistInfo) {
+    console.log('Artist Information----', artistInfo);
+    if (this.state.currentPlaylist && this.state.playlists) {
+      let updatedPlaylists = this.state.playlists;
+      updatedPlaylists[this.state.currentPlaylist].push([artistInfo.artist, artistInfo.trackName, artistInfo.processResults, artistInfo.index]);
+      this.setState({
+        playlists: updatedPlaylists
+      });
+    } else {
+      alert('Please create a playlist first!');
+    }
+  }
+
+  setCurrentPlaylist(playlist) {
+    this.setState({
+      currentPlaylist: playlist
+    });
   }
 
   loadPastSearchResults(trackId) {
@@ -352,11 +379,11 @@ class App extends React.Component {
           <div className="col2">
             <PlaylistEntry
               className="playlistEntry"
-              addToPlaylist={this.state.addToPlaylist} 
-              createNewPlaylists={this.createNewPlaylists} 
-              setCurrentPlaylist={this.setCurrentPlaylist} 
-              currentPlaylist={this.state.currentPlaylist} 
-              playlists={this.state.playlists} 
+              addToPlaylist={this.state.addToPlaylist}
+              createNewPlaylists={this.createNewPlaylists}
+              setCurrentPlaylist={this.setCurrentPlaylist}
+              currentPlaylist={this.state.currentPlaylist}
+              playlists={this.state.playlists}
               process={this.process}
             />
             <User
