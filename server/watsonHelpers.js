@@ -61,6 +61,7 @@ const nlu = new watsonNLU({
 
 
 const queryWatsonNLUHelper = (songString) => {
+  console.log(songString);
   const parameters = {
     text: songString,
     features: {
@@ -75,13 +76,13 @@ const queryWatsonNLUHelper = (songString) => {
         limit: 2
       }
     }
-  }
+  };
   return nlu.analyzeAsync(parameters)
   .then (data => {
+    //console.log("result from watsonnnn", data);
     return data;
   })
   .catch (err => {
-    console.log('queryWatsonNLUHelper error: ', err);
     return err;
   });
 };

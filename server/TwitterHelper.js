@@ -16,20 +16,19 @@ var twitter = new Twit({
 
 Promise.promisifyAll(twitter);
 
-var queryTwitter = (artistHashTag, callback) => {
-  twitter.getAsync('search/tweets', { q: `#${artistHashTag} since:2016-03-11`, count: 20 })
-  .then((data) => {
-    //console.log('from twitterHelper data:', data); 
-    selectedSong = data;
-    callback(data);   
-  })
-  .catch((err) => {
-    console.log('from twitterHelper err:', err); 
-    callback(err);
+var queryTwitter = (artistHashTag) => {
+  return new Promise((resolve, reject) => {
+    twitter.getAsync('search/tweets', { q: `#${artistHashTag} since:2016-03-11`, count: 10})
+    .then((data) => {
+      selectedSong = data;
+      resolve(data);   
+    })
+    .catch((err) => {
+      console.log('from twitterHelper err:', err); 
+      reject(err);
+    });
   });
-};
-   
- 
+};  
 
 module.exports.queryTwitterHelper = queryTwitter;
 

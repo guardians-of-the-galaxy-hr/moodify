@@ -14,14 +14,10 @@ class TweetResults extends React.Component {
     this.redirect = this.redirect.bind(this); 
   }
   redirect() {
-    console.log(browserHistory);
     this.setState({redirect: true});
   }
   
   render() {
-  
-    console.log(this.props.allTweets);
-
     if (this.state.redirect) {
       return <Redirect to={{
         state: { tweets: this.props.allTweets },

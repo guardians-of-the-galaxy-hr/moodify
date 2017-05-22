@@ -178,7 +178,6 @@ class App extends React.Component {
         console.log('error');
         this.state.tweets = [{content: 'Unable to get any Tweets', time: 4}];
       } else {
-        console.log('I passeddddddddd');
         this.state.tweets = res.data.statuses.map((tweet, index) => {
           return ({content: tweet.text, time: 4});
         });
