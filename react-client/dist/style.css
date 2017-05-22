@@ -593,6 +593,7 @@ h6 {
   font: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .moodClass {
   padding-left: 10%;
   padding-right:10%;
@@ -601,3 +602,20 @@ h6 {
 .tweetClass {
   padding-top: 10%
 }
+
+
+.trackButton {
+  display: inline;
+  background-color: #5fc9f8;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-style: bold;
+  border-radius: 6px;
+  border: 2px solid;
+}
+
+#addButton {
+  background-color: #fccce1
+}
+

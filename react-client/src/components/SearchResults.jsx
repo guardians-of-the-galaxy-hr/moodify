@@ -7,6 +7,12 @@ class SearchResults extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.addToPlayList = this.addToPlayList.bind(this);
+    this.style = {
+      'paddingLeft': '4px', 
+      'paddingRight': '8px', 
+      'marginBottom': '8px',
+      'marginLeft': '8px'
+    }
   }
 
   handleClick(e) {
@@ -14,16 +20,6 @@ class SearchResults extends React.Component {
     console.log('INDEX----', index);
     this.props.process(this.props.results.track_list[index].track);
     this.props.searchTweets(this.props.results.track_list[index].track.artist_name);
-  }
-
-
-  addToPlayList(artistInfo) {
-    this.props.addToPlaylist(artistInfo);
-  }
-
-
-  addToPlayList(artistInfo) {
-    this.props.addToPlaylist(artistInfo);
   }
 
 
@@ -55,8 +51,8 @@ class SearchResults extends React.Component {
             }
             return (
               <div>
-              <div className='searchText' key={i} value={i} onClick={this.handleClick} > {i + 1}. {trackObj.track.track_name} - {trackObj.track.artist_name }</div>
-              <div className='searchText' key={i + 1} value={i} onClick={() => this.addToPlayList(artistDetails)} >Add to playlist</div>
+              {i + 1}. <button className="trackButton" style={this.style} key={i} value={i} onClick={this.handleClick} > {trackObj.track.track_name} - {trackObj.track.artist_name }</button>
+              <button className="trackButton" id="addButton" style={this.style} key={i + 1} value={i} onClick={() => this.addToPlayList(artistDetails)} >Add to playlist</button>
               </div>
             )})
           }
