@@ -6,9 +6,6 @@ const Speaker = require('speaker');
 const config = require('../config/index.js');
 
 const AWS = require('aws-sdk');
-// AWS.config.loadFromPath('../config/index.js');
-// const AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID;
-// const AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY;
 
 AWS.config.update({
   accessKeyId: config.AWS_ACCESS_KEY_ID,
@@ -18,12 +15,6 @@ AWS.config.update({
 var Polly = new AWS.Polly({
   // signatureVersion: 'v4',
   region: 'us-east-1'
-});
-
-const speaker = new Speaker({
-  channels: 1,
-  bitDepth: 16,
-  sampleRate: 16000
 });
 
 const getUserStats = (username, callback) => {
@@ -42,7 +33,6 @@ const incrementCount = (username, callback) => {
   });
 };
 
-
 const readStats = (text) => {
 
   var params = {
@@ -51,26 +41,26 @@ const readStats = (text) => {
     Text: text,
     TextType: 'text',
     VoiceId: 'Emma'
-    // ssml: text,
-    // TextType: 'ssml',
   };
+  const speaker = new Speaker({
+    channels: 1,
+    bitDepth: 16,
+    sampleRate: 16000
+  });
 
   Polly.synthesizeSpeech(params, (err, data) => {
     if (err) {
       console.log(err.code);
     } else if (data) {
-      console.log('got through!');
       if (data.AudioStream instanceof Buffer) {
         // Initiate the source
         var bufferStream = new Stream.PassThrough();
         // convert AudioStream into a readable stream
         bufferStream.end(data.AudioStream);
         // Pipe into Player
-        // console.log(data.AudioStream);
         bufferStream.pipe(speaker);
       }
     }
-    // res.send('finish play audio');
   });
 };
 
