@@ -26,12 +26,13 @@ class TweetResults extends React.Component {
     } 
    
     if (!this.props.loading) {
+      <h3> Click to read more tweets about {this.props.albumArtist}</h3>;
       return (  
           <div className="player" onClick={this.redirect}>
             <Marquee
               data={this.props.tweets}
               fontSize="15px"
-              backgroundColor= "#ffe205"
+              backgroundColor= "#5fc9f8"
             />       
           </div>     
       );

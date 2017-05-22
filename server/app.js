@@ -193,7 +193,7 @@ app.get('/searchTweets', (req, res) => {
   twitterHelpers.queryTwitterHelper(req.query.ArtistHashTag)
   .then((response) => {
     selectedSong = response;
-    res.send(response);
+    res.send(response.data);
   })
   .catch((err) => {
     res.send(err);
@@ -201,9 +201,10 @@ app.get('/searchTweets', (req, res) => {
 });  
 
 app.get('/allTweets', (req, res) => {
-  var tweetArray = selectedSong;
+  //console.log(selectedSong)
+  var tweetArray = selectedSong.data;
   var tweetAnalyses = [];
-  Promise.map(selectedSong.statuses, function(input, index) {  
+  Promise.map(selectedSong.data.statuses, function(input, index) {  
     // return googleTranslateHelpers.translateToEnglish(input.text)
     // .then((translatedText) => {
     //   tweetArray.statuses[index].text = translatedText;     
@@ -211,16 +212,18 @@ app.get('/allTweets', (req, res) => {
     // .then((translatedText) => {
     return watsonHelpers.queryWatsonNLUHelper(input.text)
     .then((watsonAnalyses) =>{
+      console.log(watsonAnalyses);
       if (watsonAnalyses.keywords.length !== 0) {
-        //console.log('From Watsonnnnnnn', watsonAnalyses.keywords[0].emotion);
+     //   console.log('From Watsonnnnnnn', watsonAnalyses.keywords[0].emotion);
         tweetAnalyses.push(watsonAnalyses.keywords[0].emotion);
       }
     })
     .catch((error) => {
+      console.log(error);
     });
   })
   .then((result) => {
-    res.send({'tweets': tweetArray, 'tweetAnalyses': tweetAnalyses} );
+    res.send({'tweets': tweetArray, 'tweetAnalyses': tweetAnalyses, 'artist': selectedSong.artist});
   })
   .catch((error) => {
     res.send(error);
